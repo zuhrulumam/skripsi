@@ -66,4 +66,7 @@ class ExpertAnswers extends Model
     public static $rules = [
         
     ];
+    public function getQuestionId() {
+        return $this->belongsTo("App\Models\ExpertsQuestions", "rel_question_id", "question_id");
+    }
 }

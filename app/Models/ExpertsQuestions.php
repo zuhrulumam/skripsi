@@ -33,20 +33,17 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  *      )
  * )
  */
-class ExpertsQuestions extends Model
-{
+class ExpertsQuestions extends Model {
+
     use SoftDeletes;
 
     public $table = 'experts_questions';
-    
+
     const CREATED_AT = 'created_at';
     const UPDATED_AT = 'updated_at';
 
-
     protected $dates = ['deleted_at'];
-
     protected $primaryKey = 'question_id';
-
     public $fillable = [
         'question_slug',
         'question_category_id',
@@ -71,6 +68,12 @@ class ExpertsQuestions extends Model
      * @var array
      */
     public static $rules = [
-        
     ];
+
+    public function getCategoryComparation($type) {
+        return $this->belongsTo("App\Models\Categories", $type, "category_id");
+    }
+
+    
+
 }

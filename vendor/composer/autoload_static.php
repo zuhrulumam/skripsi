@@ -361,6 +361,7 @@ class ComposerStaticInit7c335f730519cd01fc01d57c03310525
         'Absolute_Positioner' => __DIR__ . '/..' . '/dompdf/dompdf/include/absolute_positioner.cls.php',
         'Abstract_Renderer' => __DIR__ . '/..' . '/dompdf/dompdf/include/abstract_renderer.cls.php',
         'AddColumnDeletedAt' => __DIR__ . '/../..' . '/database/migrations/2016_05_20_070102_add_column_deleted_at.php',
+        'AddColumnToExpertquestion' => __DIR__ . '/../..' . '/database/migrations/2016_08_17_031235_add_column_to_expertquestion.php',
         'AddDeleted' => __DIR__ . '/../..' . '/database/migrations/2016_05_20_124611_add_deleted.php',
         'Adobe_Font_Metrics' => __DIR__ . '/..' . '/phenx/php-font-lib/classes/Adobe_Font_Metrics.php',
         'Attribute_Translator' => __DIR__ . '/..' . '/dompdf/dompdf/include/attribute_translator.cls.php',
