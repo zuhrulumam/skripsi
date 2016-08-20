@@ -70,4 +70,8 @@ class UserQuestions extends Model
     public function category() {
         return $this->hasOne('App\Models\Questions', 'question_id','rel_question_id');
     }
+    
+     public function getQuestionId() {
+        return $this->belongsTo("App\Models\Questions", "rel_question_id", "question_id");
+    }
 }

@@ -77,3 +77,5 @@ Route::resource('experts', 'ExpertsController');
 Route::resource('expertsQuestions', 'ExpertsQuestionsController');
 
 Route::resource('expertAnswers', 'ExpertAnswersController');
+
+Route::resource('subCategories', 'SubCategoriesController');

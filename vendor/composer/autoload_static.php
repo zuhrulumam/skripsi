@@ -362,6 +362,7 @@ class ComposerStaticInit7c335f730519cd01fc01d57c03310525
         'Abstract_Renderer' => __DIR__ . '/..' . '/dompdf/dompdf/include/abstract_renderer.cls.php',
         'AddColumnDeletedAt' => __DIR__ . '/../..' . '/database/migrations/2016_05_20_070102_add_column_deleted_at.php',
         'AddColumnToExpertquestion' => __DIR__ . '/../..' . '/database/migrations/2016_08_17_031235_add_column_to_expertquestion.php',
+        'AddColumnUserQuestions' => __DIR__ . '/../..' . '/database/migrations/2016_08_18_044336_add_column_userQuestions.php',
         'AddDeleted' => __DIR__ . '/../..' . '/database/migrations/2016_05_20_124611_add_deleted.php',
         'Adobe_Font_Metrics' => __DIR__ . '/..' . '/phenx/php-font-lib/classes/Adobe_Font_Metrics.php',
         'Attribute_Translator' => __DIR__ . '/..' . '/dompdf/dompdf/include/attribute_translator.cls.php',
@@ -379,6 +380,7 @@ class ComposerStaticInit7c335f730519cd01fc01d57c03310525
         'CreateCategoriesTable' => __DIR__ . '/../..' . '/database/migrations/2016_04_19_041717_create_categories_table.php',
         'CreatePasswordResetsTable' => __DIR__ . '/../..' . '/database/migrations/2014_10_12_100000_create_password_resets_table.php',
         'CreateQuestionsTable' => __DIR__ . '/../..' . '/database/migrations/2016_04_19_021722_create_questions_table.php',
+        'CreateTableSubcategories' => __DIR__ . '/../..' . '/database/migrations/2016_08_18_065758_create_table_subcategories.php',
         'CreateUserQuestionsTable' => __DIR__ . '/../..' . '/database/migrations/2016_04_19_031207_create_user_questions_table.php',
         'CreateUsersTable' => __DIR__ . '/../..' . '/database/migrations/2014_10_12_000000_create_users_table.php',
         'DOMPDF' => __DIR__ . '/..' . '/dompdf/dompdf/include/dompdf.cls.php',
@@ -992,6 +994,7 @@ class ComposerStaticInit7c335f730519cd01fc01d57c03310525
         'SebastianBergmann\\Version' => __DIR__ . '/..' . '/sebastian/version/src/Version.php',
         'Style' => __DIR__ . '/..' . '/dompdf/dompdf/include/style.cls.php',
         'Stylesheet' => __DIR__ . '/..' . '/dompdf/dompdf/include/stylesheet.cls.php',
+        'SubCategoriesSeeder' => __DIR__ . '/../..' . '/database/seeds/SubCategoriesSeeder.php',
         'TCPDF_Adapter' => __DIR__ . '/..' . '/dompdf/dompdf/include/tcpdf_adapter.cls.php',
         'Table_Cell_Frame_Decorator' => __DIR__ . '/..' . '/dompdf/dompdf/include/table_cell_frame_decorator.cls.php',
         'Table_Cell_Frame_Reflower' => __DIR__ . '/..' . '/dompdf/dompdf/include/table_cell_frame_reflower.cls.php',
@@ -1015,6 +1018,7 @@ class ComposerStaticInit7c335f730519cd01fc01d57c03310525
         'expertAnswersTableSeeder' => __DIR__ . '/../..' . '/database/seeds/expertAnswersTableSeeder.php',
         'expertQuestionTableSeeder' => __DIR__ . '/../..' . '/database/seeds/expertQuestionTableSeeder.php',
         'expertTableSeeder' => __DIR__ . '/../..' . '/database/seeds/expertTableSeeder.php',
+        'question_seeder' => __DIR__ . '/../..' . '/database/seeds/question_seeder.php',
     );
 
     public static function getInitializer(ClassLoader $loader)

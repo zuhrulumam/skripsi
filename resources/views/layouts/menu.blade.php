@@ -14,3 +14,7 @@
     <a href="{!! route('expertAnswers.index') !!}"><i class="fa fa-edit"></i><span>ExpertAnswers</span></a>
 </li>
 
+<li class="{{ Request::is('subCategories*') ? 'active' : '' }}">
+    <a href="{!! route('subCategories.index') !!}"><i class="fa fa-edit"></i><span>SubCategories</span></a>
+</li>
+

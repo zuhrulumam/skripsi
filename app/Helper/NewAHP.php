@@ -15,20 +15,27 @@ class NewAHP {
     protected $arrayColumnSum = [];
     protected $arrayRowSum = [];
     protected $arrayWeightPriority = [];
+    protected $max = 1;
+    protected $min = 1;
 
-    public function __construct($answers, $countQuestion, $countUser, $countCategory) {
+    public function __construct($answers, $countQuestion, $countUser, $max) {
         $this->answers = $answers;
-        $this->countAnswer = $answers->count();
+        $this->countAnswer = count($answers);
         $this->countQuestion = $countQuestion;
-//        $this->countUser = $countUser;
-        $this->countUser = 9;
+        $this->countUser = $countUser;
+//        $this->countUser = 9;
 //        $this->countCategory = $countCategory;
         $this->countCategory = (1 + sqrt((1 + 4 * (2 * ($this->countQuestion))))) / 2; //cari akar persamaan kuadrat n(n-1)/2
+        $this->max = $max * $this->countCategory;
+        $this->min = $this->max - $this->countCategory + 1;
+
+//        print_r($this->countCategory);
+//        print_r($answers[0]->getQuestionId->first_category_comparation);
     }
 
     public function consistency() {
         $eigenmaks = 0;
-        for ($i = 1; $i <= $this->countCategory; $i++) {
+        for ($i = $this->min; $i <= $this->max; $i++) {
             $eigenmaks +=(($this->arrayRowSum['sumRow_' . $i]) / $this->arrayWeightPriority['weight_' . $i]) / 5;
         }
 
@@ -49,8 +56,8 @@ class NewAHP {
     public function weightPriority() {
         $value = 1;
 
-        for ($i = 1; $i <= $this->countCategory; $i++) {
-            for ($j = 1; $j <= $this->countCategory; $j++) {
+        for ($i = $this->min; $i <= $this->max; $i++) {
+            for ($j = $this->min; $j <= $this->max; $j++) {
                 $value *= ($this->newPairwise["faktor_" . $i . " / faktor_" . $j]);
             }
             $this->arrayWeightPriority['weight_' . $i] = pow($value, (1 / $this->countCategory));
@@ -62,8 +69,8 @@ class NewAHP {
     public function rowSum() {
         $sum = 0;
 
-        for ($i = 1; $i <= $this->countCategory; $i++) {
-            for ($j = 1; $j <= $this->countCategory; $j++) {
+        for ($i = $this->min; $i <= $this->max; $i++) {
+            for ($j = $this->min; $j <= $this->max; $j++) {
                 $sum += ($this->newPairwise["faktor_" . $i . " / faktor_" . $j]);
             }
             $this->arrayRowSum['sumRow_' . $i] = $sum;
@@ -74,9 +81,9 @@ class NewAHP {
     }
 
     public function updatePairwise() {
-        for ($i = 1; $i <= $this->countCategory; $i++) {
+        for ($i = $this->min; $i <= $this->max; $i++) {
             $currentSumColumn = $this->arrayColumnSum['sumColumn_' . $i];
-            for ($j = 1; $j <= $this->countCategory; $j++) {
+            for ($j = $this->min; $j <= $this->max; $j++) {
                 $this->newPairwise["faktor_" . $j . " / faktor_" . $i] /= ($currentSumColumn);
             }
         }
@@ -86,9 +93,9 @@ class NewAHP {
 
     public function columnSum() {
 
-        for ($i = 1; $i <= $this->countCategory; $i++) {
+        for ($i = $this->min; $i <= $this->max; $i++) {
             $value = 0;
-            for ($j = 1; $j <= $this->countCategory; $j++) {
+            for ($j = $this->min; $j <= $this->max; $j++) {
                 $text = "faktor_" . $j . " / faktor_" . $i;
                 $value += $this->newPairwise[$text];
             }
@@ -100,8 +107,8 @@ class NewAHP {
 
     public function createNewPairwise() {
 
-        for ($j = 1; $j <= $this->countCategory; $j++) {
-            for ($k = 1; $k <= $this->countCategory; $k++) {
+        for ($j = $this->min; $j <= $this->max; $j++) {
+            for ($k = $this->min; $k <= $this->max; $k++) {
                 $value = 1;
                 $text = "faktor_" . $j . " / faktor_" . $k;
                 for ($i = 1; $i <= $this->countUser; $i++) {
@@ -120,7 +127,7 @@ class NewAHP {
 //       3 = 1
 //       2 = 0.33
 //       1 = 0.11
-        $userId = 0;
+
         for ($i = 0; $i < $this->countAnswer; $i++) {
 
             $userId = $this->answers[$i]->rel_user_id;
@@ -153,13 +160,14 @@ class NewAHP {
             $this->pairwise['PairwiseUser_' . $userId][$text] = $answer;
             $this->pairwise['PairwiseUser_' . $userId][$reciprocalText] = $reciprocalAnswer;
 
-            if ($firstFaktorId == ($this->countCategory - 1)) {
-                $sameText2 = "faktor_" . $this->countCategory . " / faktor_" . $this->countCategory;
-                $this->pairwise['PairwiseUser_' . $userId][$sameText2] = 1;
-            }
+//            if ($firstFaktorId == ($this->countCategory - 1)) {
+            $sameText2 = "faktor_" . $secondFaktorId . " / faktor_" . $secondFaktorId;
+            $this->pairwise['PairwiseUser_' . $userId][$sameText2] = 1;
+//            }
         }
 
         return $this->pairwise;
+//        print_r($this->pairwise);
     }
 
 }
