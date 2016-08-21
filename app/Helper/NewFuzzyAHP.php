@@ -16,45 +16,50 @@ class NewFuzzyAHP {
     protected $weight = [];
     protected $defuzzy = [];
     protected $normalWeight = [];
+    protected $max = 1;
+    protected $min = 1;
 
-    public function __construct($answers, $countQuestion, $countUser) {
+    public function __construct($answers, $countQuestion, $countUser, $max) {
         $this->answers = $answers;
-        $this->countAnswer = $answers->count();
+        $this->countAnswer = count($answers);
         $this->countQuestion = $countQuestion;
-//        $this->countUser = $countUser;
-        $this->countUser = 9;
+        $this->countUser = $countUser;
+//        $this->countUser = 9;
 //        $this->countCategory = $countCategory;
         $this->countCategory = (1 + sqrt((1 + 4 * (2 * ($this->countQuestion))))) / 2; //cari akar persamaan kuadrat n(n-1)/2
+
+        $this->max = $max * $this->countCategory;
+        $this->min = $this->max - $this->countCategory + 1;
     }
-    
+
     public function rank() {
         arsort($this->normalWeight);
 
         return $this->normalWeight;
     }
-    
+
     public function normalWeight() {
         $sum = 0;
-        for ($i = (1); $i <= $this->countCategory; $i++) {
+        for ($i = $this->min; $i <= $this->max; $i++) {
             $sum +=$this->defuzzy['defuzzy_' . $i];
         }
-        for ($i = 1; $i <= $this->countCategory; $i++) {
+        for ($i = $this->min; $i <= $this->max; $i++) {
             $this->normalWeight['normalWeight_' . $i] = $this->defuzzy['defuzzy_' . $i] / $sum;
         }
 
         return $this->normalWeight;
     }
-    
+
     public function defuzzy() {
-        for ($i = (1); $i <= $this->countCategory; $i++) {
-            $this->defuzzy['defuzzy_' . $i] = ($this->weight['weight_' . $i]['l'] + $this->weight['weight_' . $i]['m'] + $this->weight['weight_' . $i]['u'])/3;
+        for ($i = $this->min; $i <= $this->max; $i++) {
+            $this->defuzzy['defuzzy_' . $i] = ($this->weight['weight_' . $i]['l'] + $this->weight['weight_' . $i]['m'] + $this->weight['weight_' . $i]['u']) / 3;
         }
 
         return $this->defuzzy;
     }
-    
+
     public function weight() {
-        for ($i = (1); $i <= $this->countCategory; $i++) {
+        for ($i = $this->min; $i <= $this->max; $i++) {
             $this->weight['weight_' . $i]['l'] = $this->arrayGeometry['geometri_' . $i]['l'] * $this->arrayInverseGeometri['l'];
             $this->weight['weight_' . $i]['m'] = $this->arrayGeometry['geometri_' . $i]['m'] * $this->arrayInverseGeometri['m'];
             $this->weight['weight_' . $i]['u'] = $this->arrayGeometry['geometri_' . $i]['u'] * $this->arrayInverseGeometri['u'];
@@ -62,14 +67,14 @@ class NewFuzzyAHP {
 
         return $this->weight;
     }
-    
-     public function InverseGeometri() {
+
+    public function InverseGeometri() {
         $sum = [
             'l' => 0,
             'm' => 0,
             'u' => 0
         ];
-        for ($i = (1); $i <= $this->countCategory; $i++) {
+        for ($i = $this->min; $i <= $this->max; $i++) {
             $sum['l']+= $this->arrayGeometry['geometri_' . $i]['l'];
             $sum['m']+= $this->arrayGeometry['geometri_' . $i]['m'];
             $sum['u']+= $this->arrayGeometry['geometri_' . $i]['u'];
@@ -82,13 +87,13 @@ class NewFuzzyAHP {
     }
 
     public function geometryMean() {
-        for ($i = 1; $i <= $this->countCategory; $i++) {
+        for ($i = $this->min; $i <= $this->max; $i++) {
             $value = [
                 'l' => 1,
                 'm' => 1,
                 'u' => 1
             ];
-            for ($j = 1; $j <= $this->countCategory; $j++) {
+            for ($j = $this->min; $j <= $this->max; $j++) {
                 $text = "faktor_" . $i . " / faktor_" . $j;
                 $value = [
                     'l' => $value['l'] * $this->newPairwise[$text]['l'],
@@ -96,21 +101,21 @@ class NewFuzzyAHP {
                     'u' => $value['u'] * $this->newPairwise[$text]['u'],
                 ];
             }
-            $this->arrayGeometry['geometri_'.$i] = [
-                'l' =>pow($value['l'], (1/$this->countCategory)),
-                'm' =>pow($value['m'], (1/$this->countCategory)),
-                'u' =>pow($value['u'], (1/$this->countCategory)),
+            $this->arrayGeometry['geometri_' . $i] = [
+                'l' => pow($value['l'], (1 / $this->countCategory)),
+                'm' => pow($value['m'], (1 / $this->countCategory)),
+                'u' => pow($value['u'], (1 / $this->countCategory)),
             ];
         }
-        
+
 //        print_r($this->arrayGeometry);
         return ($this->arrayGeometry);
     }
 
     public function createNewPairwise() {
 
-        for ($j = 1; $j <= $this->countCategory; $j++) {
-            for ($k = 1; $k <= $this->countCategory; $k++) {
+        for ($j = $this->min; $j <= $this->max; $j++) {
+            for ($k = $this->min; $k <= $this->max; $k++) {
                 $value = [
                     'l' => 1,
                     'm' => 1,
@@ -203,14 +208,13 @@ class NewFuzzyAHP {
             $this->pairwise['PairwiseUser_' . $userId][$text] = $answer;
             $this->pairwise['PairwiseUser_' . $userId][$reciprocalText] = $reciprocalAnswer;
 
-            if ($firstFaktorId == ($this->countCategory - 1)) {
-                $sameText2 = "faktor_" . $this->countCategory . " / faktor_" . $this->countCategory;
-                $this->pairwise['PairwiseUser_' . $userId][$sameText2] = [
-                    'l' => 1,
-                    'm' => 1,
-                    'u' => 1
-                ];
-            }
+
+            $sameText2 = "faktor_" . $secondFaktorId . " / faktor_" . $secondFaktorId;
+            $this->pairwise['PairwiseUser_' . $userId][$sameText2] = [
+                'l' => 1,
+                'm' => 1,
+                'u' => 1
+            ];
         }
 
         return $this->pairwise;

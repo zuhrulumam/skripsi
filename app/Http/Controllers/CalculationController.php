@@ -102,7 +102,6 @@ class CalculationController extends Controller {
             'faktor' => $faktor,
             'subFactors' => $subFactors
         ]);
-
     }
 
     public function fuzzy() {
@@ -111,7 +110,7 @@ class CalculationController extends Controller {
         $sumExperts = Experts::count();
         $sumExpertsQuestions = ExpertsQuestions::count();
 
-        $fuzzy = new NewFuzzyAHP($expertAnswers, $sumExpertsQuestions, $sumExperts);
+        $fuzzy = new NewFuzzyAHP($expertAnswers, $sumExpertsQuestions, 9, 1);
 
         $faktorPairwise = $fuzzy->createPairwise();
 
@@ -129,7 +128,7 @@ class CalculationController extends Controller {
 
         $rank = $fuzzy->rank();
 
-        return view('calculation.newFuzzy', [
+        $faktor = [
             'faktorPairwise' => $faktorPairwise,
             'newPairwise' => $newPairwise,
             'arrayGeometry' => $arrayGeometry,
@@ -138,6 +137,64 @@ class CalculationController extends Controller {
             'defuzzy' => $defuzzy,
             'normalWeight' => $normalWeight,
             'rank' => $rank
+        ];
+        
+         //subfaktor
+        $countCategory = Categories::count();
+        $userAnswers = UserQuestions::all();
+        $countUserAnswers = $userAnswers->count();
+        $userQuestion = Questions::all();
+        $countUserQuestion = $userQuestion->count();
+        $countUser = Users::count();
+        $perUserAnswers = [];
+        $arrayCountPerUserQuestions = [];
+
+        for ($i = 1; $i <= $countCategory; $i++) {
+            $arrayCountPerUserQuestions[$i] = 0;
+        }
+        for ($i = 0; $i < $countUserQuestion; $i++) {
+            $categoryId = $userQuestion[$i]->question_category_id;
+            $arrayCountPerUserQuestions[$categoryId] ++;
+        }
+        for ($i = 0; $i < $countUserAnswers; $i++) {
+            $categoryId = $userAnswers[$i]->category->question_category_id;
+            $perUserAnswers[$categoryId][] = $userAnswers[$i];
+        }
+
+        $subFactors = [];
+        for ($i = 1; $i <= $countCategory; $i++) {
+            $fuzzy = new NewFuzzyAHP($perUserAnswers[$i], $arrayCountPerUserQuestions[$i], $countUser, $i);
+
+            $faktorPairwise = $fuzzy->createPairwise();
+
+            $newPairwise = $fuzzy->createNewPairwise();
+//
+            $arrayGeometry = $fuzzy->geometryMean();
+//
+            $inverseGeometry = $fuzzy->InverseGeometri();
+//
+            $weight = $fuzzy->weight();
+//
+            $defuzzy = $fuzzy->defuzzy();
+//
+            $normalWeight = $fuzzy->normalWeight();
+
+            $rank = $fuzzy->rank();
+            $subFactors[$i] = [
+                'pairwise' => $faktorPairwise,
+                'newPairwise' => $newPairwise,
+                'arrayGeometry' => $arrayGeometry,
+                'InverseGeometri' => $inverseGeometry,
+                'weight' => $weight,
+                'defuzzy' => $defuzzy,
+                'normalWeight' => $normalWeight,
+                'rank' => $rank
+            ];
+        }
+
+        return view('calculation.newFuzzy', [
+            'factor' => $faktor,
+            'subFactors' => $subFactors
         ]);
 
 //        $data = UserQuestions::all();
