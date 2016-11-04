@@ -69,8 +69,10 @@ Route::resource('userQuestions', 'UserQuestionsController');
 
 Route::resource('categories', 'CategoriesController');
 
-Route::get('/calculation', 'CalculationController@index');
-Route::get('/calculation/fuzzy', 'CalculationController@fuzzy');
+Route::get('/calculationAhp', 'CalculationAHPController@index');
+Route::get('/calculationAhp/{type}', 'CalculationAHPController@subfactor');
+Route::get('/calculationAhp/dosen', 'CalculationAHPController@dosen');
+//Route::get('/calculation/fuzzy', 'CalculationController@fuzzy');
 
 Route::resource('experts', 'ExpertsController');
 

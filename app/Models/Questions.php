@@ -73,5 +73,8 @@ class Questions extends Model {
     public function category() {
         return $this->hasOne('App\Models\Categories', 'category_id','question_category_id');
     }
+    public function getSubCategory() {
+        return $this->hasOne('App\Models\SubCategories', 'rel_category_id','question_category_id');
+    }
 
 }

@@ -80,4 +80,8 @@ class Users extends Model
     public static $rules = [
         
     ];
+    
+    public function getAnswers() {
+        return $this->hasMany("App\Models\UserQuestions", "rel_user_id", "id");
+    }
 }

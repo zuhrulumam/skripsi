@@ -1,7 +1,7 @@
 {
-    "name": "laravel/laravel",
-    "description": "The Laravel Framework.",
-    "keywords": ["framework", "laravel"],
+    "name": "Skripsi",
+    "description": "Final Project Bachelor Degree",
+    "keywords": ["framework", "laravel", "AHP", "Fuzzy-AHP", "Group Decission Making"],
     "license": "MIT",
     "type": "project",
     "require": {

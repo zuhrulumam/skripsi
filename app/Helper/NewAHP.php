@@ -17,20 +17,16 @@ class NewAHP {
     protected $arrayWeightPriority = [];
     protected $max = 1;
     protected $min = 1;
+    protected $userIds = [];
 
     public function __construct($answers, $countQuestion, $countUser, $max) {
         $this->answers = $answers;
         $this->countAnswer = count($answers);
         $this->countQuestion = $countQuestion;
         $this->countUser = $countUser;
-//        $this->countUser = 9;
-//        $this->countCategory = $countCategory;
         $this->countCategory = (1 + sqrt((1 + 4 * (2 * ($this->countQuestion))))) / 2; //cari akar persamaan kuadrat n(n-1)/2
         $this->max = $max * $this->countCategory;
         $this->min = $this->max - $this->countCategory + 1;
-
-//        print_r($this->countCategory);
-//        print_r($answers[0]->getQuestionId->first_category_comparation);
     }
 
     public function consistency() {
@@ -111,8 +107,8 @@ class NewAHP {
             for ($k = $this->min; $k <= $this->max; $k++) {
                 $value = 1;
                 $text = "faktor_" . $j . " / faktor_" . $k;
-                for ($i = 1; $i <= $this->countUser; $i++) {
-                    $value *= $this->pairwise['PairwiseUser_' . $i][$text];
+                foreach ($this->userIds as $key => $value) {
+                    $value *= $this->pairwise['PairwiseUser_' . $value][$text];
                 }
                 $this->newPairwise[$text] = pow($value, (1 / $this->countUser));
             }
@@ -131,7 +127,7 @@ class NewAHP {
         for ($i = 0; $i < $this->countAnswer; $i++) {
 
             $userId = $this->answers[$i]->rel_user_id;
-
+            $this->userIds[] = $userId;
             $firstFaktorId = $this->answers[$i]->getQuestionId->first_category_comparation;
             $secondFaktorId = $this->answers[$i]->getQuestionId->second_category_comparation;
 
