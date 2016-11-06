@@ -29,19 +29,16 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  *      )
  * )
  */
-class UserQuestions extends Model
-{
+class UserQuestions extends Model {
+
     use SoftDeletes;
 
     public $table = 'user_questions';
-    
+
     const CREATED_AT = 'created_at';
     const UPDATED_AT = 'updated_at';
 
-
     protected $dates = ['deleted_at'];
-
-
     public $fillable = [
         'rel_user_id',
         'rel_question_id',
@@ -64,14 +61,14 @@ class UserQuestions extends Model
      * @var array
      */
     public static $rules = [
-        
     ];
-    
-    public function category() {
-        return $this->hasOne('App\Models\Questions', 'question_id','rel_question_id');
+
+    public function getCategory() {
+        return $this->hasOne('App\Models\Questions', 'question_id', 'rel_question_id');
     }
-    
-     public function getQuestionId() {
+
+    public function getQuestionId() {
         return $this->belongsTo("App\Models\Questions", "rel_question_id", "question_id");
     }
+
 }

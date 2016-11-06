@@ -18,3 +18,7 @@
     <a href="{!! route('subCategories.index') !!}"><i class="fa fa-edit"></i><span>SubCategories</span></a>
 </li>
 
+<li class="{{ Request::is('dataDosens*') ? 'active' : '' }}">
+    <a href="{!! route('dataDosens.index') !!}"><i class="fa fa-edit"></i><span>DataDosens</span></a>
+</li>
+

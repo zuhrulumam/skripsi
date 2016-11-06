@@ -32,7 +32,7 @@ class NewAHP {
     public function consistency() {
         $eigenmaks = 0;
         for ($i = $this->min; $i <= $this->max; $i++) {
-            $eigenmaks +=(($this->arrayRowSum['sumRow_' . $i]) / $this->arrayWeightPriority['weight_' . $i]) / 5;
+            $eigenmaks += ((($this->arrayRowSum['sumRow_' . $i]) / $this->arrayWeightPriority['weight_' . $i]) / 5);
         }
 
         $CI = ($eigenmaks - $this->countCategory) / ($this->countCategory - 1);
@@ -127,7 +127,9 @@ class NewAHP {
         for ($i = 0; $i < $this->countAnswer; $i++) {
 
             $userId = $this->answers[$i]->rel_user_id;
-            $this->userIds[] = $userId;
+//            if (!in_array($userId, $this->userIds)) {
+                $this->userIds[] = $userId;
+//            }
             $firstFaktorId = $this->answers[$i]->getQuestionId->first_category_comparation;
             $secondFaktorId = $this->answers[$i]->getQuestionId->second_category_comparation;
 

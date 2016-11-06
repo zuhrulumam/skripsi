@@ -11,6 +11,8 @@
 |
 */
 
+
+Route::get("/checkDemografi", "CheckDemografiController@check");
 Route::get('/', function () {
     $faker = Faker\Factory::create();
     
@@ -71,8 +73,9 @@ Route::resource('categories', 'CategoriesController');
 
 Route::get('/calculationAhp', 'CalculationAHPController@index');
 Route::get('/calculationAhp/{type}', 'CalculationAHPController@subfactor');
-Route::get('/calculationAhp/dosen', 'CalculationAHPController@dosen');
-//Route::get('/calculation/fuzzy', 'CalculationController@fuzzy');
+
+Route::get('/calculationFuzzy', 'CalculationFuzzyController@index');
+Route::get('/calculationFuzzy/{type}', 'CalculationFuzzyController@subfactor');
 
 Route::resource('experts', 'ExpertsController');
 
@@ -81,3 +84,5 @@ Route::resource('expertsQuestions', 'ExpertsQuestionsController');
 Route::resource('expertAnswers', 'ExpertAnswersController');
 
 Route::resource('subCategories', 'SubCategoriesController');
+
+Route::resource('dataDosens', 'DataDosenController');

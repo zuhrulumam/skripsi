@@ -80,8 +80,4 @@ class SubCategories extends Model
     public static $rules = [
         
     ];
-    
-//    public function getCategory() {
-//        return $this->hasOne("");
-//    }
 }

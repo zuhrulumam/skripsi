@@ -37,19 +37,16 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  *      )
  * )
  */
-class Users extends Model
-{
+class Users extends Model {
+
     use SoftDeletes;
 
     public $table = 'users';
-    
+
     const CREATED_AT = 'created_at';
     const UPDATED_AT = 'updated_at';
 
-
     protected $dates = ['deleted_at'];
-
-
     public $fillable = [
         'name',
         'email',
@@ -78,10 +75,14 @@ class Users extends Model
      * @var array
      */
     public static $rules = [
-        
     ];
-    
+
     public function getAnswers() {
         return $this->hasMany("App\Models\UserQuestions", "rel_user_id", "id");
     }
+    
+    public function getFaculty() {
+        return $this->hasOne("App\Models\DataDosen", "NIP", "identityNumber");
+    }
+
 }

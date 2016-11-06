@@ -18,6 +18,7 @@ class NewFuzzyAHP {
     protected $normalWeight = [];
     protected $max = 1;
     protected $min = 1;
+    protected $userIds = [];
 
     public function __construct($answers, $countQuestion, $countUser, $max) {
         $this->answers = $answers;
@@ -122,23 +123,28 @@ class NewFuzzyAHP {
                     'u' => 1
                 ];
                 $text = "faktor_" . $j . " / faktor_" . $k;
-                for ($i = 1; $i <= $this->countUser; $i++) {
-                    $value = [
-                        'l' => $value['l'] * $this->pairwise['PairwiseUser_' . $i][$text]['l'],
-                        'm' => $value['m'] * $this->pairwise['PairwiseUser_' . $i][$text]['m'],
-                        'u' => $value['u'] * $this->pairwise['PairwiseUser_' . $i][$text]['u']
-                    ];
+                foreach ($this->userIds as $key => $valueId) {
+//                    print_r('faktor'.$text.' dari '.$valueId.' '.$value['m'].' kali '.$this->pairwise['PairwiseUser_' . $valueId][$text]['m'].'<br>');
+                    $value['l'] *=$this->pairwise['PairwiseUser_' . $valueId][$text]['l'];
+                    $value['m'] *= round($this->pairwise['PairwiseUser_' . $valueId][$text]['m'],2);
+                    $value['u'] *=$this->pairwise['PairwiseUser_' . $valueId][$text]['u'];
+//                    $value = [
+//                        'l' => (float) $value['l'] * (float) $this->pairwise['PairwiseUser_' . $valueId][$text]['l'],
+//                        'm' => round((float) $value['m'] * (float) $this->pairwise['PairwiseUser_' . $valueId][$text]['m'], 3),
+//                        'u' => (float) $value['u'] * (float) $this->pairwise['PairwiseUser_' . $valueId][$text]['u']
+//                    ];
+//                    print_r($value['m'].' in row '.$j.'<br>');
                 }
+                $pembagi = (float)(1 / $this->countUser);
                 $this->newPairwise[$text] = [
-                    'l' => pow($value['l'], (1 / $this->countUser)),
-                    'm' => pow($value['m'], (1 / $this->countUser)),
-                    'u' => pow($value['u'], (1 / $this->countUser)),
+                    'l' => pow($value['l'], $pembagi),
+                    'm' => pow($value['m'], $pembagi),
+                    'u' => pow($value['u'], $pembagi),
                 ];
             }
         }
-
-        return $this->newPairwise;
 //        print_r($this->newPairwise);
+        return $this->newPairwise;
     }
 
     public function createPairwise() {
@@ -151,7 +157,10 @@ class NewFuzzyAHP {
         for ($i = 0; $i < $this->countAnswer; $i++) {
 
             $userId = $this->answers[$i]->rel_user_id;
-
+            if(!in_array($userId, $this->userIds)){
+                $this->userIds[] = $userId;
+            }
+            
             $firstFaktorId = $this->answers[$i]->getQuestionId->first_category_comparation;
             $secondFaktorId = $this->answers[$i]->getQuestionId->second_category_comparation;
 
@@ -218,7 +227,7 @@ class NewFuzzyAHP {
         }
 
         return $this->pairwise;
-//        print_r($this->pairwise);
+//        print_r($this->userIds);
     }
 
 }
