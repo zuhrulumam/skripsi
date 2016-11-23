@@ -18,6 +18,37 @@ use App\Helper\NewFuzzyAHP;
 
 class CalculationFuzzyController extends Controller {
 
+    public function checkAccessed($completedUser) {
+        $everAccessedUser = [];
+        $neverAccessedUser = [];
+        $countCompletedUser = count($completedUser);
+        for ($j = 0; $j < $countCompletedUser; $j++) {
+            $countAnswers = count($completedUser[$j]->getAnswers);
+            for ($i = 0; $i < $countAnswers; $i++) {
+                $currQuestionId = $completedUser[$j]->getAnswers[$i]->rel_question_id;
+
+                if ($currQuestionId == 31) {
+                    $answer = $completedUser[$j]->getAnswers[$i]->rel_answer;
+                    if ($answer == 1) {
+                        array_push($everAccessedUser, $completedUser[$j]);
+                    } else {
+                        array_push($neverAccessedUser, $completedUser[$j]);
+                    }
+                }
+            }
+        }
+
+        $result = [
+            'ever' => $everAccessedUser,
+            'never' => $neverAccessedUser
+        ];
+
+        return $result;
+
+//        print_r('Penah mengakses ' . count($everAccessedUser) . '<br>');
+//        print_r('Belum Pernah mengakses ' . count($neverAccessedUser));
+    }
+
     public function subfactor($type) {
 
 //        $users = Users::all();
@@ -40,18 +71,20 @@ class CalculationFuzzyController extends Controller {
 
         $countCompletedUser = count($completedUser);
 
+        $checkedUser = $this->checkAccessed($completedUser);
+
         $arrayCategory = [];
         if ($type == 'mahasiswa') {
             $arrayCategory = [2, 3, 5];
         } else if ($type == 'dosen') {
-            $arrayCategory = [1, 2, 3,4, 5];
+            $arrayCategory = [1, 2, 3, 4, 5];
         }
 
         $arrayCountPerUserQuestions = [];
         //one by one user answer (nanti ditaruh percubkategori)
         $perUserAnswer = [];
 
-        $userQuestion = Questions::all();
+        $userQuestion = Questions::orderBy("question_id", 'asc')->get();
         $countUserQuestion = $userQuestion->count();
 
         foreach ($arrayCategory as $key => $value) {
@@ -65,30 +98,38 @@ class CalculationFuzzyController extends Controller {
             }
         }
 
-        for ($j = 0; $j < $countCompletedUser; $j++) {
-            for ($i = 0; $i < count($completedUser[$j]->getAnswers); $i++) {
-                $currQuestionId = $completedUser[$j]->getAnswers[$i]->rel_question_id;
-                $categoryId = $completedUser[$j]->getAnswers[$i]->getCategory->question_category_id;
+//        for ($j = 0; $j < $countCompletedUser; $j++) {
+//            for ($i = 0; $i < count($completedUser[$j]->getAnswers); $i++) {
+//                $currQuestionId = $completedUser[$j]->getAnswers[$i]->rel_question_id;
+//                $categoryId = $completedUser[$j]->getAnswers[$i]->getCategory->question_category_id;
+//
+//                if ($currQuestionId !== 31) {
+//                    $perUserAnswer[$categoryId] [] = $completedUser[$j]->getAnswers[$i];
+//                }
+//            }
+//        }
+                $countCheckedUser = count($checkedUser['ever']);
+//        $countCheckedUser = 285;
+        for ($j = 0; $j < $countCheckedUser; $j++) {
+            $countAnswers = count($checkedUser['ever'][$j]->getAnswers);
+            for ($i = 0; $i < $countAnswers; $i++) {
+                $currQuestionId = $checkedUser['ever'][$j]->getAnswers[$i]->rel_question_id;
+//                print_r($currQuestionId.'<br>');
+//                $categoryId = $checkedUser['ever'][$j]->getAnswers[$i]->getCategory->question_category_id;
 
                 if ($currQuestionId !== 31) {
-                    $perUserAnswer[$categoryId] [] = $completedUser[$j]->getAnswers[$i];
+                    $index = $currQuestionId - 1;
+                    $categoryId = $userQuestion[$index]->question_category_id;
+//                 print_r($categoryId.'<br>');
+                    $perUserAnswer[$categoryId][] = $checkedUser['ever'][$j]->getAnswers[$i];
                 }
             }
         }
-
-//        $fuzzy = new NewFuzzyAHP($perUserAnswer[2], $arrayCountPerUserQuestions[2], $countCompletedUser, 2);
-//
-//            $faktorPairwise = $fuzzy->createPairwise();
-//            $newPairwise = $fuzzy->createNewPairwise();
-//            $arrayGeometry = $fuzzy->geometryMean();
-//            
-//            $inverseGeometry = $fuzzy->InverseGeometri();
-//            
-//            $weight = $fuzzy->weight();
-//            print_r($faktorPairwise);
+$factors = [0.33671719519044,0.14289752332143 ,0.26317733871162, 0.10693303127343 , 0.15027491150309 ];
         $subFactors = [];
         foreach ($arrayCategory as $key => $value) {
-            $fuzzy = new NewFuzzyAHP($perUserAnswer[$value], $arrayCountPerUserQuestions[$value], $countCompletedUser, $value);
+//            $fuzzy = new NewFuzzyAHP($perUserAnswer[$value], $arrayCountPerUserQuestions[$value], $countCompletedUser, $value);
+            $fuzzy = new NewFuzzyAHP($perUserAnswer[$value], $arrayCountPerUserQuestions[$value], $countCheckedUser, $value);
 
             $faktorPairwise = $fuzzy->createPairwise();
 
@@ -129,8 +170,8 @@ class CalculationFuzzyController extends Controller {
         }
 
         return view('calculation.fuzzyMahasiswa', [
-            'subFactors' => $subFactors
-        ]);
+            'subFactors' => $subFactors,
+			'factors' => $factors        ]);
     }
 
     public function index() {

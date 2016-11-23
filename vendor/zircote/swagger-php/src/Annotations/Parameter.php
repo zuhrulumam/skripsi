@@ -228,6 +228,9 @@ class Parameter extends AbstractAnnotation
                 } elseif (in_array($this->type, $validTypes) === false) {
                     $valid = false;
                     Logger::notice($this->identity() . '->type must be "' . implode('", "', $validTypes) . '" when ' . $this->_identity([]) . '->in != "body" in ' . $this->_context);
+                } elseif ($this->type === 'file' && $this->in !== 'formData') {
+                    Logger::notice($this->identity() . '->in must be "formData" when ' . $this->_identity([]) . '->type == "file" in ' . $this->_context);
+                    $valid = false;
                 }
             }
         }

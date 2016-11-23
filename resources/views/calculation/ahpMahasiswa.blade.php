@@ -84,12 +84,20 @@
     
     <h2>Rank</h2>
     <?php $i = 1; ?>
-    @foreach($subFactor['rank'] as $key=>$value)
-    {{ $i }}. {{ str_replace('weight_', ' Sub Factor ',$key)}} = {{$value}} <br>
+    @foreach($subFactor['rank'] as $keys=>$value)
+    {{ $i }}. {{ str_replace('weight_', ' Sub Factor ',$keys)}} = {{$value}} <br>
     <?php $i++ ?>
     @endforeach
-
+	
     <h1>Consistency = {{ $subFactor['consistency'] }}</h1>
+	
+	<h2>Global Rank</h2>
+    <?php $i = 1; ?>
+    @foreach($subFactor['rank'] as $keys=>$value)
+	<?php $indexFactor = $key-1; $result = $value * $factors[$indexFactor];?>
+    {{ $i }}. {{ str_replace('weight_', ' Sub Factor ',$keys)}} = {{$result}} <br>
+    <?php $i++ ?>
+    @endforeach
     <?php
 //    $min += $rowSubCount;
 

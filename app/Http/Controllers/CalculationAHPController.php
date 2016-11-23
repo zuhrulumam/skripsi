@@ -20,39 +20,6 @@ use App\Models\DataDosen;
 
 class CalculationAHPController extends Controller {
 
-    public function checkDemografiDosen($checkedUser) {
-        $ever = $checkedUser['ever'];
-        $never = $checkedUser['never'];
-
-        $everFaculty = [];
-        $neverFaculty = [];
-        //ever
-        $countEverUser = count($ever);
-        for ($i = 0; $i < $countEverUser; $i++) {
-            $currFaculty = $ever[$i]->getFaculty->FAKULTAS;
-            echo $currFaculty.'<br>';
-            if(!array_key_exists($currFaculty, $everFaculty)){
-                $everFaculty[$currFaculty] = 1;
-            } 
-            else {
-                $everFaculty[$currFaculty]++;
-            }
-            
-        }
-        
-        print_r($everFaculty);
-
-        //never
-        $countNeverUser = count($never);
-        for ($i = 0; $i < $countNeverUser; $i++) {
-//            print_r($never[$i]->identityNumber . '<br>');
-        }
-    }
-
-    public function checkDemografiMahasiswa($checkedUser) {
-        
-    }
-
     public function checkAccessed($completedUser) {
         $everAccessedUser = [];
         $neverAccessedUser = [];
@@ -84,10 +51,10 @@ class CalculationAHPController extends Controller {
 //        print_r('Belum Pernah mengakses ' . count($neverAccessedUser));
     }
 
-    public function subfactor($type) {
+    public function subfactor($type, $condition) {
 
         $users = Users::orderBy("id", 'asc')->get();
-        ;
+
         $countUser = count($users);
 //        $countUser = 8000;
 //        print_r($users->count());
@@ -109,40 +76,31 @@ class CalculationAHPController extends Controller {
 
         $checkedUser = $this->checkAccessed($completedUser);
 
+        $arrayCategory = [];
         if ($type == 'mahasiswa') {
-            $this->checkDemografiMahasiswa($checkedUser);
+            $arrayCategory = [2, 3, 5];
         } else if ($type == 'dosen') {
-            $this->checkDemografiDosen($checkedUser);
+            $arrayCategory = [1, 2, 3, 4, 5];
         }
 
+        $arrayCountPerUserQuestions = [];
+        //one by one user answer (nanti ditaruh percubkategori)
+        $perUserAnswer = [];
 
-//        $arrayCategory = [];
-//        if ($type == 'mahasiswa') {
-//            $arrayCategory = [2, 3, 5];
-//        } else if ($type == 'dosen') {
-//            $arrayCategory = [1, 2, 3, 4, 5];
-//        }
-//
-//        $arrayCountPerUserQuestions = [];
-//        //one by one user answer (nanti ditaruh percubkategori)
-//        $perUserAnswer = [];
-//
-//        $userQuestion = Questions::orderBy("question_id", 'asc')->get();
-//        $countUserQuestion = $userQuestion->count();
-//
-//        foreach ($arrayCategory as $key => $value) {
-//            $arrayCountPerUserQuestions[$value] = 0;
-//        }
-//
-//        for ($i = 0; $i < $countUserQuestion; $i++) {
-//            $categoryId = $userQuestion[$i]->question_category_id;
-//            if (in_array($categoryId, $arrayCategory)) {
-//                $arrayCountPerUserQuestions[$categoryId] ++;
-//            }
-//        }
-//
-////        print_r($userQuestion[30]->question_category_id);
-//
+        $userQuestion = Questions::orderBy("question_id", 'asc')->get();
+        $countUserQuestion = $userQuestion->count();
+
+        foreach ($arrayCategory as $key => $value) {
+            $arrayCountPerUserQuestions[$value] = 0;
+        }
+
+        for ($i = 0; $i < $countUserQuestion; $i++) {
+            $categoryId = $userQuestion[$i]->question_category_id;
+            if (in_array($categoryId, $arrayCategory)) {
+                $arrayCountPerUserQuestions[$categoryId] ++;
+            }
+        }
+
 //        for ($j = 0; $j < $countCompletedUser; $j++) {
 //            $countAnswers = count($completedUser[$j]->getAnswers);
 //            for ($i = 0; $i < $countAnswers; $i++) {
@@ -158,48 +116,69 @@ class CalculationAHPController extends Controller {
 //                }
 //            }
 //        }
-//
-////        $subCategories = SubCategories::orderBy("sub_category_id", 'asc')->get();
-//
-//        $subFactors = [];
-//        foreach ($arrayCategory as $key => $value) {
+        $countCheckedUser = count($checkedUser[$condition]);
+        //$countCheckedUser = 300;
+        for ($j = 0; $j < $countCheckedUser; $j++) {
+            $countAnswers = count($checkedUser[$condition][$j]->getAnswers);
+            for ($i = 0; $i < $countAnswers; $i++) {
+                $currQuestionId = $checkedUser[$condition][$j]->getAnswers[$i]->rel_question_id;
+//                print_r($currQuestionId.'<br>');
+//                $categoryId = $checkedUser['ever'][$j]->getAnswers[$i]->getCategory->question_category_id;
+
+                if ($currQuestionId !== 31) {
+                    $index = $currQuestionId - 1;
+                    $categoryId = $userQuestion[$index]->question_category_id;
+//                 print_r($categoryId.'<br>');
+                    $perUserAnswer[$categoryId][] = $checkedUser[$condition][$j]->getAnswers[$i];
+                }
+            }
+        }
+        $factors = [0.219901599, 0.18527445, 0.189895741, 0.1946323, 0.2095627];
+
+//        $subCategories = SubCategories::orderBy("sub_category_id", 'asc')->get();
+        $subFactors = [];
+        foreach ($arrayCategory as $key => $value) {
 //            $newAhp = new NewAHP($perUserAnswer[$value], $arrayCountPerUserQuestions[$value], $countCompletedUser, $value);
-//            $subfaktorPairwise = $newAhp->createPairwise();
-//            $subNewPairwise = $newAhp->createNewPairwise();
-//            $arraySumColumn = $newAhp->columnSum();
-//            $updatePairwise = $newAhp->updatePairwise();
-//            $arraySumRow = $newAhp->rowSum();
-//            $arrayWeightPriority = $newAhp->weightPriority();
-//            $rank = $newAhp->rank();
-//            $consistency = $newAhp->consistency();
-//
-//            //data view
-//            $userId = $perUserAnswer[$value][0]->rel_user_id;
-//            $countSubFaktorPairwise = count($subfaktorPairwise);
-//            $rowSubCount = sqrt(count($subfaktorPairwise["PairwiseUser_" . $userId]));
-//            $min = $perUserAnswer[$value][0]->getQuestionId->getSubCategory->sub_category_id;
-////            print_r($min . '<br>');
-////            $index = $value - 1;
-////            $sub = $subCategories[$index]->sub_category_id;
-////            print_r('sub' . $sub . '<br>');
-//
-//            $subFactors[$value] = [
-//                'pairwise' => $subfaktorPairwise,
-//                'subNewPairwise' => $subNewPairwise,
-//                'arraySumColumn' => $arraySumColumn,
-//                'updatePairwise' => $updatePairwise,
-//                'arraySumRow' => $arraySumRow,
-//                'arrayWeightPriority' => $arrayWeightPriority,
-//                'rank' => $rank,
-//                'consistency' => $consistency,
-//                'countSubFaktorPairwise' => $countSubFaktorPairwise,
-//                'rowSubCount' => $rowSubCount,
-//                'min' => $min
-//            ];
-//        }
-//        return view('calculation.ahpMahasiswa', [
-//            'subFactors' => $subFactors
-//        ]);
+            $newAhp = new NewAHP($perUserAnswer[$value], $arrayCountPerUserQuestions[$value], $countCheckedUser, $value);
+            $subfaktorPairwise = $newAhp->createPairwise();
+            $subNewPairwise = $newAhp->createNewPairwise();
+            $arraySumColumn = $newAhp->columnSum();
+            $updatePairwise = $newAhp->updatePairwise();
+            $arraySumRow = $newAhp->rowSum();
+            $arrayWeightPriority = $newAhp->weightPriority();
+            $rank = $newAhp->rank();
+            $consistency = $newAhp->consistency();
+
+            //data view
+            $userId = $perUserAnswer[$value][0]->rel_user_id;
+            $countSubFaktorPairwise = count($subfaktorPairwise);
+            $rowSubCount = sqrt(count($subfaktorPairwise["PairwiseUser_" . $userId]));
+            $min = $perUserAnswer[$value][0]->getQuestionId->getSubCategory->sub_category_id;
+//            $min = $value;
+//            print_r($min . '<br>');
+//            $index = $value - 1;
+//            $sub = $subCategories[$index]->sub_category_id;
+//            print_r('sub' . $sub . '<br>');
+
+            $subFactors[$value] = [
+                'pairwise' => $subfaktorPairwise,
+                'subNewPairwise' => $subNewPairwise,
+                'arraySumColumn' => $arraySumColumn,
+                'updatePairwise' => $updatePairwise,
+                'arraySumRow' => $arraySumRow,
+                'arrayWeightPriority' => $arrayWeightPriority,
+                'rank' => $rank,
+                'consistency' => $consistency,
+                'countSubFaktorPairwise' => $countSubFaktorPairwise,
+                'rowSubCount' => $rowSubCount,
+                'min' => $min
+            ];
+        }
+
+        return view('calculation.ahpMahasiswa', [
+            'subFactors' => $subFactors,
+            'factors' => $factors
+        ]);
     }
 
     public function index() {

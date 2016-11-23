@@ -127,9 +127,9 @@ class NewAHP {
         for ($i = 0; $i < $this->countAnswer; $i++) {
 
             $userId = $this->answers[$i]->rel_user_id;
-//            if (!in_array($userId, $this->userIds)) {
+            if (!in_array($userId, $this->userIds)) {
                 $this->userIds[] = $userId;
-//            }
+            }
             $firstFaktorId = $this->answers[$i]->getQuestionId->first_category_comparation;
             $secondFaktorId = $this->answers[$i]->getQuestionId->second_category_comparation;
 
@@ -165,7 +165,7 @@ class NewAHP {
         }
 
         return $this->pairwise;
-//        print_r($this->pairwise);
+//        print_r($this->userIds);
     }
 
 }

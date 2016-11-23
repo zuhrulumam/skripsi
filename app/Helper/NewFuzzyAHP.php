@@ -127,7 +127,7 @@ class NewFuzzyAHP {
 //                    print_r('faktor'.$text.' dari '.$valueId.' '.$value['m'].' kali '.$this->pairwise['PairwiseUser_' . $valueId][$text]['m'].'<br>');
                     $value['l'] *=$this->pairwise['PairwiseUser_' . $valueId][$text]['l'];
                     $value['m'] *= round($this->pairwise['PairwiseUser_' . $valueId][$text]['m'],2);
-                    $value['u'] *=$this->pairwise['PairwiseUser_' . $valueId][$text]['u'];
+                    $value['u'] *= round($this->pairwise['PairwiseUser_' . $valueId][$text]['u'],2);
 //                    $value = [
 //                        'l' => (float) $value['l'] * (float) $this->pairwise['PairwiseUser_' . $valueId][$text]['l'],
 //                        'm' => round((float) $value['m'] * (float) $this->pairwise['PairwiseUser_' . $valueId][$text]['m'], 3),

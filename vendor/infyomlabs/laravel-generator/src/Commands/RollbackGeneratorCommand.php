@@ -67,22 +67,15 @@ class RollbackGeneratorCommand extends Command
         if (!in_array($this->argument('type'), [
             CommandData::$COMMAND_TYPE_API,
             CommandData::$COMMAND_TYPE_SCAFFOLD,
-            CommandData::$COMMAND_TYPE_SCAFFOLD_API,
-        ])
-        ) {
+            CommandData::$COMMAND_TYPE_API_SCAFFOLD,
+        ])) {
             $this->error('invalid rollback type');
         }
 
         $this->commandData = new CommandData($this, $this->argument('type'));
         $this->commandData->config->mName = $this->commandData->modelName = $this->argument('model');
 
-        $this->commandData->config->prepareOptions($this->commandData, ['tableName', 'prefix']);
-        $this->commandData->config->prepareAddOns();
-        $this->commandData->config->prepareModelNames();
-        $this->commandData->config->prepareTableName();
-        $this->commandData->config->loadPaths();
-        $this->commandData->config->loadNamespaces($this->commandData);
-        $this->commandData = $this->commandData->config->loadDynamicVariables($this->commandData);
+        $this->commandData->config->init($this->commandData, ['tableName', 'prefix']);
 
         $migrationGenerator = new MigrationGenerator($this->commandData);
         $migrationGenerator->rollback();

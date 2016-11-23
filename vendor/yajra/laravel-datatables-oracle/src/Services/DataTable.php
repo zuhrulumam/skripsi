@@ -3,6 +3,7 @@
 namespace Yajra\Datatables\Services;
 
 use Illuminate\Contracts\View\Factory;
+use Illuminate\Support\Facades\Config;
 use Maatwebsite\Excel\Classes\LaravelExcelWorksheet;
 use Maatwebsite\Excel\Writers\LaravelExcelWriter;
 use Yajra\Datatables\Contracts\DataTableButtonsContract;
@@ -34,7 +35,7 @@ abstract class DataTable implements DataTableContract, DataTableButtonsContract
      *
      * @var string
      */
-    protected $printPreview;
+    protected $printPreview = 'datatables::print';
 
     /**
      * List of columns to be exported.
@@ -56,6 +57,13 @@ abstract class DataTable implements DataTableContract, DataTableButtonsContract
      * @var \Yajra\Datatables\Contracts\DataTableScopeContract[]
      */
     protected $scopes = [];
+
+    /**
+     * Html builder.
+     *
+     * @var \Yajra\Datatables\Html\Builder
+     */
+    protected $htmlBuilder;
 
     /**
      * Export filename.
@@ -119,9 +127,8 @@ abstract class DataTable implements DataTableContract, DataTableButtonsContract
     public function printPreview()
     {
         $data = $this->getDataForPrint();
-        $view = $this->printPreview ?: 'datatables::print';
 
-        return $this->viewFactory->make($view, compact('data'));
+        return $this->viewFactory->make($this->printPreview, compact('data'));
     }
 
     /**
@@ -173,7 +180,7 @@ abstract class DataTable implements DataTableContract, DataTableButtonsContract
      */
     public function builder()
     {
-        return $this->datatables->getHtmlBuilder();
+        return $this->htmlBuilder ?: $this->htmlBuilder = $this->datatables->getHtmlBuilder();
     }
 
     /**
@@ -304,11 +311,41 @@ abstract class DataTable implements DataTableContract, DataTableButtonsContract
     /**
      * Export results to PDF file.
      *
-     * @return void
+     * @return mixed
      */
     public function pdf()
     {
-        $this->buildExcelFile()->download('pdf');
+        if ('snappy' == Config::get('datatables.pdf_generator', 'excel')) {
+            return $this->snappyPdf();
+        } else {
+            $this->buildExcelFile()->download('pdf');
+        }
+    }
+
+    /**
+     * PDF version of the table using print preview blade template.
+     *
+     * @return mixed
+     */
+    public function snappyPdf()
+    {
+        /** @var \Barryvdh\Snappy\PdfWrapper $snappy */
+        $snappy = app('snappy.pdf.wrapper');
+
+        $options     = Config::get('datatables.snappy.options', [
+            'no-outline'    => true,
+            'margin-left'   => '0',
+            'margin-right'  => '0',
+            'margin-top'    => '10mm',
+            'margin-bottom' => '10mm',
+        ]);
+        $orientation = Config::get('datatables.snappy.orientation', 'landscape');
+
+        $snappy->setOptions($options)
+               ->setOrientation($orientation);
+
+        return $snappy->loadHTML($this->printPreview())
+                      ->download($this->getFilename() . ".pdf");
     }
 
     /**
@@ -350,15 +387,7 @@ abstract class DataTable implements DataTableContract, DataTableButtonsContract
             'order'   => [[0, 'desc']],
             'buttons' => [
                 'create',
-                [
-                    'extend'  => 'collection',
-                    'text'    => '<i class="fa fa-download"></i> Export',
-                    'buttons' => [
-                        'csv',
-                        'excel',
-                        'pdf',
-                    ],
-                ],
+                'export',
                 'print',
                 'reset',
                 'reload',

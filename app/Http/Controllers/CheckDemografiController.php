@@ -8,6 +8,9 @@ use App\Models\Users;
 
 class CheckDemografiController extends Controller {
 
+    public $everAccessedMahasiswa = [];
+    public $neverAccessedMahasiswa = [];
+
     public function checkDemografiDosen($checkedUser) {
         $ever = $checkedUser['ever'];
         $never = $checkedUser['never'];
@@ -30,9 +33,7 @@ class CheckDemografiController extends Controller {
 
         //never -> yang belum pernah mengakses elearning
         $countNeverUser = count($never);
-
         for ($i = 0; $i < $countNeverUser; $i++) {
-
             $currFaculty = $never[$i]->getFaculty->FAKULTAS;
             if (!array_key_exists($currFaculty, $neverFaculty)) {
                 $neverFaculty[$currFaculty] = 1;
@@ -40,7 +41,6 @@ class CheckDemografiController extends Controller {
                 $neverFaculty[$currFaculty] ++;
             }
         }
-
         $neverFaculty['TOTAL'] = $countNeverUser;
         $result = [
             'ever' => $everFaculty,
@@ -50,44 +50,81 @@ class CheckDemografiController extends Controller {
         return $result;
     }
 
-    public function checkDemografiMahasiswa($checkedUser) {
-        $ever = $checkedUser['ever'];
-        $never = $checkedUser['never'];
+    public function checkDemografiMahasiswa() {
+        $faculties = [
+            'D' => 'FISIP',
+            'E' => 'FH',
+            'I' => 'FT',
+            'C' => 'FSSR',
+            'H' => 'FP',
+            'F' => 'FEB',
+            'K' => 'FKIP',
+            'M' => 'MIPA',
+            'G' => 'FK',
+            'R' => 'FK',
+            'X' => 'FKIP',
+            'S' => 'PASCA SARJANA',
+            'T' => 'PASCA SARJANA',
+            'B' => 'PASCA SARJANA',
+            'A' => 'PASCA SARJANA',
+        ];
 
         $everFaculty = [];
         $neverFaculty = [];
 
-        //ever
-        $countEverUser = count($ever);
-        for ($i = 0; $i < $countEverUser; $i++) {
-            $currNIM = $ever[$i]->identityNumber[0];
+        $everYear = [];
+        $neverYear = [];
 
-            if (!array_key_exists($currNIM, $everFaculty)) {
-                $everFaculty[$currNIM] = 1;
+        //ever
+        $countEverUser = count($this->everAccessedMahasiswa);
+        for ($i = 0; $i < $countEverUser; $i++) {
+            $currNIM = $this->everAccessedMahasiswa[$i]->identityNumber[0];
+            $key = $faculties[$currNIM];
+
+            $currYear = '20' . $this->everAccessedMahasiswa[$i]->identityNumber[3] . $this->everAccessedMahasiswa[$i]->identityNumber[4];
+
+            if (!array_key_exists($key, $everFaculty)) {
+                $everFaculty[$key] = 1;
             } else {
-                $everFaculty[$currNIM] ++;
+                $everFaculty[$key] ++;
+            }
+            if (!array_key_exists($currYear, $everYear)) {
+                $everYear[$currYear] = 1;
+            } else {
+                $everYear[$currYear] ++;
             }
         }
 
         $everFaculty['TOTAL'] = $countEverUser;
 
         //never -> yang belum pernah mengakses elearning
-        $countNeverUser = count($never);
+        $countNeverUser = count($this->neverAccessedMahasiswa);
 
         for ($i = 0; $i < $countNeverUser; $i++) {
+            $currNIM = $this->neverAccessedMahasiswa[$i]->identityNumber[0];
+            $key = $faculties[$currNIM];
+            $currYear = '20' . $this->neverAccessedMahasiswa[$i]->identityNumber[3] . $this->neverAccessedMahasiswa[$i]->identityNumber[4];
 
-            $currNIM = $never[$i]->identityNumber[0];
-            if (!array_key_exists($currNIM, $neverFaculty)) {
-                $neverFaculty[$currNIM] = 1;
+            if (!array_key_exists($currYear, $neverYear)) {
+                $neverYear[$currYear] = 1;
             } else {
-                $neverFaculty[$currNIM] ++;
+                $neverYear[$currYear] ++;
+            }
+
+            if (!array_key_exists($key, $neverFaculty)) {
+                $neverFaculty[$key] = 1;
+            } else {
+                $neverFaculty[$key] ++;
             }
         }
-
+        
         $neverFaculty['TOTAL'] = $countNeverUser;
+
         $result = [
-            'ever' => $everFaculty,
-            'never' => $neverFaculty,
+            'everFaculties' => $everFaculty,
+            'everYear' => $everYear,
+            'neverYear' => $neverYear,
+            'neverFaculties' => $neverFaculty,
         ];
 
         return $result;
@@ -97,22 +134,28 @@ class CheckDemografiController extends Controller {
         $everAccessedUser = [];
         $neverAccessedUser = [];
         $countCompletedUser = count($completedUser);
+        $k = 0;
         for ($j = 0; $j < $countCompletedUser; $j++) {
             $countAnswers = count($completedUser[$j]->getAnswers);
+            
             for ($i = 0; $i < $countAnswers; $i++) {
+                
                 $currQuestionId = $completedUser[$j]->getAnswers[$i]->rel_question_id;
-
+                
                 if ($currQuestionId == 31) {
+                    
                     $answer = $completedUser[$j]->getAnswers[$i]->rel_answer;
                     if ($answer == 1) {
+                        
                         array_push($everAccessedUser, $completedUser[$j]);
-                    } else {
+                    } else  {
+                        echo $completedUser[$j]->id.'<br>';
                         array_push($neverAccessedUser, $completedUser[$j]);
                     }
                 }
             }
         }
-
+exit();
         $result = [
             'ever' => $everAccessedUser,
             'never' => $neverAccessedUser
@@ -124,7 +167,7 @@ class CheckDemografiController extends Controller {
 //        print_r('Belum Pernah mengakses ' . count($neverAccessedUser));
     }
 
-    public function chooseCompletedUser() {
+    public function getCompletedUser() {
 
         $users = Users::orderBy("id", 'asc')->get();
 
@@ -154,15 +197,18 @@ class CheckDemografiController extends Controller {
     }
 
     public function check() {
-        $completedUser = $this->chooseCompletedUser();
+        $completedUser = $this->getCompletedUser();
 
         //dosen
-        $everAccessedDosen = $this->checkAccessed($completedUser['dosen']);
-        $demografiDosen = $this->checkDemografiDosen($everAccessedDosen);
+        $accessedDosen = $this->checkAccessed($completedUser['dosen']);
+        $demografiDosen = $this->checkDemografiDosen($accessedDosen);
 
         //mahasiswa
-        $everAccessedMahasiswa = $this->checkAccessed($completedUser['mahasiswa']);
-        $demografiMahasiswa = $this->checkDemografiMahasiswa($everAccessedMahasiswa);
+        $accessedMahasiswa = $this->checkAccessed($completedUser['mahasiswa']);
+        $this->everAccessedMahasiswa = $accessedMahasiswa['ever'];
+        $this->neverAccessedMahasiswa = $accessedMahasiswa['never'];
+
+        $demografiMahasiswa = $this->checkDemografiMahasiswa();
 
         $result = [
             'dosen' => $demografiDosen,
