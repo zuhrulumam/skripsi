@@ -24,7 +24,7 @@
         </tr>
         @for($i=$min; $i<($min + $rowSubCount); $i++)
         <tr>
-            <td class="rowTitle">Category {{ $i }}</td>
+            <td class="rowTitle">Sub Category {{ $i }}</td>
             @for($j=$min; $j<($min+$rowSubCount); $j++)
             <td>{{ $pairValue['faktor_'.$i.' / faktor_'.$j] }}</td>
             @endfor
@@ -91,16 +91,17 @@
 	
     <h1>Consistency = {{ $subFactor['consistency'] }}</h1>
 	
-	<h2>Global Rank</h2>
-    <?php $i = 1; ?>
-    @foreach($subFactor['rank'] as $keys=>$value)
-	<?php $indexFactor = $key-1; $result = $value * $factors[$indexFactor];?>
-    {{ $i }}. {{ str_replace('weight_', ' Sub Factor ',$keys)}} = {{$result}} <br>
-    <?php $i++ ?>
-    @endforeach
+	
     <?php
 //    $min += $rowSubCount;
 
 }
 ?>
+    <h2>Global Rank</h2>
+     <?php $i = 1; ?>
+    @foreach($globalRank as $keys=>$value)
+	
+    {{ $i }}. {{ str_replace('weight_', ' Sub Factor ',$keys)}} = {{$value }} <br>
+    <?php $i++ ?>
+    @endforeach
 @endsection

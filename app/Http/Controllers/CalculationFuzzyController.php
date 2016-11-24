@@ -49,7 +49,7 @@ class CalculationFuzzyController extends Controller {
 //        print_r('Belum Pernah mengakses ' . count($neverAccessedUser));
     }
 
-    public function subfactor($type) {
+    public function subfactor($type, $condition) {
 
 //        $users = Users::all();
         $users = Users::orderBy("id", 'asc')->get();
@@ -108,12 +108,12 @@ class CalculationFuzzyController extends Controller {
 //                }
 //            }
 //        }
-                $countCheckedUser = count($checkedUser['ever']);
+                $countCheckedUser = count($checkedUser[$condition]);
 //        $countCheckedUser = 285;
         for ($j = 0; $j < $countCheckedUser; $j++) {
-            $countAnswers = count($checkedUser['ever'][$j]->getAnswers);
+            $countAnswers = count($checkedUser[$condition][$j]->getAnswers);
             for ($i = 0; $i < $countAnswers; $i++) {
-                $currQuestionId = $checkedUser['ever'][$j]->getAnswers[$i]->rel_question_id;
+                $currQuestionId = $checkedUser[$condition][$j]->getAnswers[$i]->rel_question_id;
 //                print_r($currQuestionId.'<br>');
 //                $categoryId = $checkedUser['ever'][$j]->getAnswers[$i]->getCategory->question_category_id;
 
@@ -121,7 +121,7 @@ class CalculationFuzzyController extends Controller {
                     $index = $currQuestionId - 1;
                     $categoryId = $userQuestion[$index]->question_category_id;
 //                 print_r($categoryId.'<br>');
-                    $perUserAnswer[$categoryId][] = $checkedUser['ever'][$j]->getAnswers[$i];
+                    $perUserAnswer[$categoryId][] = $checkedUser[$condition][$j]->getAnswers[$i];
                 }
             }
         }

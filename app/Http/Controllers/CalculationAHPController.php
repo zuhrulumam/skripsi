@@ -51,7 +51,7 @@ class CalculationAHPController extends Controller {
 //        print_r('Belum Pernah mengakses ' . count($neverAccessedUser));
     }
 
-    public function subfactor($type, $condition) {
+    public function subfactor($type, $condition, $typeView = "parts") {
 
         $users = Users::orderBy("id", 'asc')->get();
 
@@ -133,12 +133,38 @@ class CalculationAHPController extends Controller {
                 }
             }
         }
-        $factors = [0.219901599, 0.18527445, 0.189895741, 0.1946323, 0.2095627];
-
-//        $subCategories = SubCategories::orderBy("sub_category_id", 'asc')->get();
+        $factors = [
+            '1' => 0.219901599,
+            '2' => 0.18527445,
+            '3' => 0.189895741,
+            '4' => 0.1946323,
+            '5' => 0.2095627
+        ];
+        $keteranganSubFactor = [
+            "Sub Factor 1" => "Kebijakan Finansial",
+            "Sub Factor 2" => "Kebijakan Peraturan (SK)",
+            "Sub Factor 3" => "Technical Support",
+            "Sub Factor 4" => "Seminar dan Training",
+            "Sub Factor 5" => "Sikap terhadap siswa",
+            "Sub Factor 6" => "Respon yang cepat",
+            "Sub Factor 7" => "Keaktivan pengajar",
+            "Sub Factor 8" => "Sikap terhadap elearning",
+            "Sub Factor 9" => "Keahlian dan wawasan menggunakan komputer",
+            "Sub Factor 10" => "Keahlian dan wawasan menggunakan internet",
+            "Sub Factor 11" => "Sikap terhadap e-learning",
+            "Sub Factor 12" => "Adanya forum / diskusi",
+            "Sub Factor 13" => "Course quality",
+            "Sub Factor 14" => "Konten yang relevan",
+            "Sub Factor 15" => "Kelengkapan konten",
+            "Sub Factor 16" => "Fleksibilitas dalam mengambil materi",
+            "Sub Factor 17" => "Tingkat portability produk",
+            "Sub Factor 18" => "Tingkat reliability produk ",
+            "Sub Factor 19" => "Mudah dimengerti dan Mudah digunakan",
+            "Sub Factor 20" => "Desain dan user interface system",
+        ];
+        $globalRank = [];
         $subFactors = [];
         foreach ($arrayCategory as $key => $value) {
-//            $newAhp = new NewAHP($perUserAnswer[$value], $arrayCountPerUserQuestions[$value], $countCompletedUser, $value);
             $newAhp = new NewAHP($perUserAnswer[$value], $arrayCountPerUserQuestions[$value], $countCheckedUser, $value);
             $subfaktorPairwise = $newAhp->createPairwise();
             $subNewPairwise = $newAhp->createNewPairwise();
@@ -154,11 +180,10 @@ class CalculationAHPController extends Controller {
             $countSubFaktorPairwise = count($subfaktorPairwise);
             $rowSubCount = sqrt(count($subfaktorPairwise["PairwiseUser_" . $userId]));
             $min = $perUserAnswer[$value][0]->getQuestionId->getSubCategory->sub_category_id;
-//            $min = $value;
-//            print_r($min . '<br>');
-//            $index = $value - 1;
-//            $sub = $subCategories[$index]->sub_category_id;
-//            print_r('sub' . $sub . '<br>');
+
+            foreach ($arrayWeightPriority as $weightKey => $weightValue) {
+                $globalRank[$weightKey] = $factors[$value] * $weightValue;
+            }
 
             $subFactors[$value] = [
                 'pairwise' => $subfaktorPairwise,
@@ -171,14 +196,24 @@ class CalculationAHPController extends Controller {
                 'consistency' => $consistency,
                 'countSubFaktorPairwise' => $countSubFaktorPairwise,
                 'rowSubCount' => $rowSubCount,
-                'min' => $min
+                'min' => $min,
             ];
         }
 
-        return view('calculation.ahpMahasiswa', [
-            'subFactors' => $subFactors,
-            'factors' => $factors
-        ]);
+        if ($typeView == 'parts') {
+            return view('calculation.ahpChart', [
+                'subFactors' => $subFactors,
+                'factors' => $factors,
+                'globalRank' => $globalRank,
+                'keteranganSubFactor'=>$keteranganSubFactor
+            ]);
+        } else if ($typeView == 'full') {
+            return view('calculation.ahpMahasiswa', [
+                'subFactors' => $subFactors,
+                'factors' => $factors,
+                'globalRank' => $globalRank,
+            ]);
+        }
     }
 
     public function index() {

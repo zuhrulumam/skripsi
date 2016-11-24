@@ -78,9 +78,9 @@ class Users extends Model {
     ];
 
     public function getAnswers() {
-        return $this->hasMany("App\Models\UserQuestions", "rel_user_id", "id");
+        return $this->hasMany("App\Models\UserQuestions", "rel_user_id", "id")->orderBy("rel_question_id","ASC");
     }
-    
+      
     public function getFaculty() {
         return $this->hasOne("App\Models\DataDosen", "NIP", "identityNumber");
     }

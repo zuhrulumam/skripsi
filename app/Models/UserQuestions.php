@@ -44,6 +44,7 @@ class UserQuestions extends Model {
         'rel_question_id',
         'rel_answer'
     ];
+//     protected $primaryKey = null;
 
     /**
      * The attributes that should be casted to native types.
@@ -69,6 +70,9 @@ class UserQuestions extends Model {
 
     public function getQuestionId() {
         return $this->belongsTo("App\Models\Questions", "rel_question_id", "question_id");
+    }
+    public function users() {
+        return $this->belongsTo("App\Models\Users", "rel_user_id", "id");
     }
 
 }

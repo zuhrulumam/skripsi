@@ -165,7 +165,23 @@ class NewAHP {
         }
 
         return $this->pairwise;
+//        $this->checkPairwise();
 //        print_r($this->userIds);
+    }
+    
+     public function checkPairwise() {
+        $jumlah = count($this->pairwise);
+        $k=0;
+         foreach ($this->userIds as $key => $valueId) {
+//             print_r($this->pairwise['PairwiseUser_'.$valueId]);
+             
+             if(!array_key_exists('faktor_5 / faktor_6', $this->pairwise['PairwiseUser_'.$valueId])){
+                 echo $valueId.'<br>';
+             }
+             
+         }
+         
+        exit();
     }
 
 }

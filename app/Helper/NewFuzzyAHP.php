@@ -31,6 +31,7 @@ class NewFuzzyAHP {
 
         $this->max = $max * $this->countCategory;
         $this->min = $this->max - $this->countCategory + 1;
+       
     }
 
     public function rank() {
@@ -227,7 +228,8 @@ class NewFuzzyAHP {
         }
 
         return $this->pairwise;
-//        print_r($this->userIds);
     }
+    
+   
 
 }

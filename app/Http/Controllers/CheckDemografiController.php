@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Http\Requests;
 use App\Models\Users;
+use App\Models\UserQuestions;
 
 class CheckDemografiController extends Controller {
 
@@ -117,7 +118,7 @@ class CheckDemografiController extends Controller {
                 $neverFaculty[$key] ++;
             }
         }
-        
+
         $neverFaculty['TOTAL'] = $countNeverUser;
 
         $result = [
@@ -134,28 +135,36 @@ class CheckDemografiController extends Controller {
         $everAccessedUser = [];
         $neverAccessedUser = [];
         $countCompletedUser = count($completedUser);
-        $k = 0;
+
         for ($j = 0; $j < $countCompletedUser; $j++) {
             $countAnswers = count($completedUser[$j]->getAnswers);
-            
+//            $k = 0;
+//            $flag = false;
             for ($i = 0; $i < $countAnswers; $i++) {
-                
+//                $k++;
                 $currQuestionId = $completedUser[$j]->getAnswers[$i]->rel_question_id;
-                
+//                if ($k > $currQuestionId) {
+////                    $completedUser[$j]->getAnswers[$i]->rel_question_id = $k;
+//                    $flag = TRUE;
+//                    $userQ = UserQuestions::where("rel_user_id", $completedUser[$j]->id)
+//                            ->where("rel_question_id", $currQuestionId)
+//                            ->first();
+//                    
+//                           $userQ->update(["rel_question_id" => $k]);
+//                }
                 if ($currQuestionId == 31) {
-                    
+
                     $answer = $completedUser[$j]->getAnswers[$i]->rel_answer;
                     if ($answer == 1) {
-                        
+//                        echo $completedUser[$j]->id.'<br>';
                         array_push($everAccessedUser, $completedUser[$j]);
-                    } else  {
-                        echo $completedUser[$j]->id.'<br>';
+                    } else {
+//                        echo $completedUser[$j]->id.'<br>';
                         array_push($neverAccessedUser, $completedUser[$j]);
                     }
                 }
             }
         }
-exit();
         $result = [
             'ever' => $everAccessedUser,
             'never' => $neverAccessedUser
