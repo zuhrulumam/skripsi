@@ -134,11 +134,11 @@ class CalculationAHPController extends Controller {
             }
         }
         $factors = [
-            '1' => 0.219901599,
-            '2' => 0.18527445,
-            '3' => 0.189895741,
-            '4' => 0.1946323,
-            '5' => 0.2095627
+            '1' => 0.22169075102664,
+            '2' => 0.1665076379811,
+            '3' => 0.19862570385077,
+            '4' => 0.21696003476619,
+            '5' => 0.19434810939422
         ];
         $keteranganSubFactor = [
             "Sub Factor 1" => "Kebijakan Finansial",
@@ -223,7 +223,7 @@ class CalculationAHPController extends Controller {
         $sumExpertsQuestions = ExpertsQuestions::count();
 
 //        $newAhp = new NewAHP($expertAnswers, $sumExpertsQuestions, $sumExperts);
-        $newAhp = new NewAHP($expertAnswers, $sumExpertsQuestions, 9, 1);
+        $newAhp = new NewAHP($expertAnswers, $sumExpertsQuestions, 10, 1);
 
         $faktorPairwise = $newAhp->createPairwise();
 

@@ -3,7 +3,7 @@
 <html>
     <head>
         <meta charset="UTF-8">
-        <title>InfyOm Generator</title>
+        <title>Skripsi | @yield("title", "Home")</title>
         <meta content='width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no' name='viewport'>
 
         <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
@@ -158,28 +158,66 @@
 
                     <!-- Branding Image -->
                     <a class="navbar-brand" href="{{ url('/') }}">
-                        InfyOm Generator
+                        Skripsi AHP Fuzzy-AHP
                     </a>
                 </div>
 
                 <div class="collapse navbar-collapse" id="app-navbar-collapse">
                     <!-- Left Side Of Navbar -->
                     <ul class="nav navbar-nav">
-                        <li><a href="{{ url('/home') }}">Home</a></li>
+                        <li class="{{ Request::is('calculationAhp*') ? 'active' : '' }}">
+                            <a href="{{ url('/calculationAhp') }}">
+                                AHP
+                            </a>
+                        </li>
+                        <li class="{{ Request::is('calculationFuzzy*') ? 'active' : '' }}">
+                            <a href="{{ url('/calculationFuzzy') }}">
+                                Fuzzy-AHP
+                            </a>
+                        </li>                        
+                        <li class="{{ Request::is('checkDemografi*') ? 'active' : '' }}">
+                            <a href="{{ url('/checkDemografi') }}">
+                                Demografi
+                            </a>
+                        </li>
                     </ul>
 
                     <!-- Right Side Of Navbar -->
                     <ul class="nav navbar-nav navbar-right">
                         <!-- Authentication Links -->
                         @if (Auth::guest())
-                        <li><a href="{{ url('/login') }}">Login</a></li>
-                        <li><a href="{{ url('/register') }}">Register</a></li>
+                        @if(Request::is('calculationAhp*'))
+                        <li class="{{ Request::is('calculationAhp/dosen*') ? 'active' : '' }}">
+                            <a href="{!! url('/calculationAhp/dosen/ever') !!}">
+                                <i class="fa fa-edit"></i>
+                                <span>Dosen</span>
+                            </a>                            
+                        </li>
+                        <li class="{{ Request::is('calculationAhp/mahasiswa*') ? 'active' : '' }}">
+                            <a href="{!! url('/calculationAhp/mahasiswa/ever') !!}">
+                                <i class="fa fa-graduation-cap"></i>
+                                <span>Mahasiswa</span>
+                            </a>
+                        </li>
+                        @else
+                        <li class="{{ Request::is('calculationFuzzy/dosen*') ? 'active' : '' }}">
+                            <a href="{!! url('/calculationFuzzy/dosen/ever') !!}">
+                                <i class="fa fa-edit"></i>
+                                <span>Dosen</span>
+                            </a>                            
+                        </li>
+                        <li class="{{ Request::is('calculationFuzzy/mahasiswa*') ? 'active' : '' }}">
+                            <a href="{!! url('/calculationFuzzy/mahasiswa/ever') !!}">
+                                <i class="fa fa-graduation-cap"></i>
+                                <span>Mahasiswa</span>
+                            </a>
+                        </li>
+                        @endif
                         @endif
                     </ul>
                 </div>
             </div>
         </nav>
-
 
         <div id="page-content-wrapper">
 
@@ -207,8 +245,8 @@
         <script src="https://cdn.datatables.net/1.10.11/js/jquery.dataTables.min.js"></script>
         <script src="https://cdn.datatables.net/1.10.11/js/dataTables.bootstrap.min.js"></script>
         <!--<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.4.0/Chart.bundle.min.js" ></script>-->
-        
-        
+
+
         @yield('scripts')
     </body>
 </html>

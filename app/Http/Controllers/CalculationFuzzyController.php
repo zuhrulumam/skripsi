@@ -108,7 +108,7 @@ class CalculationFuzzyController extends Controller {
 //                }
 //            }
 //        }
-                $countCheckedUser = count($checkedUser[$condition]);
+        $countCheckedUser = count($checkedUser[$condition]);
 //        $countCheckedUser = 285;
         for ($j = 0; $j < $countCheckedUser; $j++) {
             $countAnswers = count($checkedUser[$condition][$j]->getAnswers);
@@ -125,7 +125,7 @@ class CalculationFuzzyController extends Controller {
                 }
             }
         }
-$factors = [0.33671719519044,0.14289752332143 ,0.26317733871162, 0.10693303127343 , 0.15027491150309 ];
+        $factors = [0.33671719519044, 0.14289752332143, 0.26317733871162, 0.10693303127343, 0.15027491150309];
         $subFactors = [];
         foreach ($arrayCategory as $key => $value) {
 //            $fuzzy = new NewFuzzyAHP($perUserAnswer[$value], $arrayCountPerUserQuestions[$value], $countCompletedUser, $value);
@@ -171,7 +171,7 @@ $factors = [0.33671719519044,0.14289752332143 ,0.26317733871162, 0.1069330312734
 
         return view('calculation.fuzzyMahasiswa', [
             'subFactors' => $subFactors,
-			'factors' => $factors        ]);
+            'factors' => $factors]);
     }
 
     public function index() {
@@ -180,7 +180,7 @@ $factors = [0.33671719519044,0.14289752332143 ,0.26317733871162, 0.1069330312734
         $sumExperts = Experts::count();
         $sumExpertsQuestions = ExpertsQuestions::count();
 
-        $fuzzy = new NewFuzzyAHP($expertAnswers, $sumExpertsQuestions, 9, 1);
+        $fuzzy = new NewFuzzyAHP($expertAnswers, $sumExpertsQuestions, 10, 1);
 
         $faktorPairwise = $fuzzy->createPairwise();
 

@@ -79,7 +79,7 @@
             <h1>Ranking Global Rank</h1>
             <table class="table table-bordered">
                 <tr>
-                    <th>No</th>
+                    <th>Rank</th>
                     <td class="blank"></td>
                     <th>Keterangan</th>
                     <th>Bobot</th>
