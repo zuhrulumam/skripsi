@@ -31,7 +31,6 @@ class NewFuzzyAHP {
 
         $this->max = $max * $this->countCategory;
         $this->min = $this->max - $this->countCategory + 1;
-       
     }
 
     public function rank() {
@@ -125,27 +124,129 @@ class NewFuzzyAHP {
                 ];
                 $text = "faktor_" . $j . " / faktor_" . $k;
                 foreach ($this->userIds as $key => $valueId) {
-//                    print_r('faktor'.$text.' dari '.$valueId.' '.$value['m'].' kali '.$this->pairwise['PairwiseUser_' . $valueId][$text]['m'].'<br>');
-                    $value['l'] *=$this->pairwise['PairwiseUser_' . $valueId][$text]['l'];
-                    $value['m'] *= round($this->pairwise['PairwiseUser_' . $valueId][$text]['m'],2);
-                    $value['u'] *= round($this->pairwise['PairwiseUser_' . $valueId][$text]['u'],2);
-//                    $value = [
-//                        'l' => (float) $value['l'] * (float) $this->pairwise['PairwiseUser_' . $valueId][$text]['l'],
-//                        'm' => round((float) $value['m'] * (float) $this->pairwise['PairwiseUser_' . $valueId][$text]['m'], 3),
-//                        'u' => (float) $value['u'] * (float) $this->pairwise['PairwiseUser_' . $valueId][$text]['u']
-//                    ];
+//                    print_r($text . ' dari ' . $valueId . ' ' . $value['m'] . ' kali ' . $this->pairwise['PairwiseUser_' . $valueId][$text]['m'] . '<br>');
+                    //$value['l'] *=$this->pairwise['PairwiseUser_' . $valueId][$text]['l'];
+                    //$value['m'] *= round($this->pairwise['PairwiseUser_' . $valueId][$text]['m'],2);
+                    // $value['u'] *= round($this->pairwise['PairwiseUser_' . $valueId][$text]['u'], 2);
+                    $value['l'] = bcmul($value['l'], $this->pairwise['PairwiseUser_' . $valueId][$text]['l'], 950);
+                    $value['m'] = bcmul($value['m'], $this->pairwise['PairwiseUser_' . $valueId][$text]['m'], 950);
+                    $value['u'] = bcmul($value['u'], $this->pairwise['PairwiseUser_' . $valueId][$text]['u'], 950);
+//                    print_r($value['m'].'<br>'); 
 //                    print_r($value['m'].' in row '.$j.'<br>');
                 }
-                $pembagi = (float)(1 / $this->countUser);
+                $pembagi = (float) (1 / $this->countUser);
+
+//                print_r($text . ' ' . $value['m'] . '<br>');
+//                $mPow = $this->pow_frac($value['m'], $pembagi);
+//                print_r($text . ' ' . $mPow . '<br>');
+//                print_r($text . ' dengan pow ' . pow($value['m'], $pembagi) . '<br>');
+
+
                 $this->newPairwise[$text] = [
-                    'l' => pow($value['l'], $pembagi),
-                    'm' => pow($value['m'], $pembagi),
-                    'u' => pow($value['u'], $pembagi),
+                    'l' => $this->pow_frac($value['l'], $pembagi),
+                    'm' => $this->pow_frac($value['m'], $pembagi),
+                    'u' => $this->pow_frac($value['u'], $pembagi),
+                        // 'l' => pow($value['l'], $pembagi),
+                        // 'm' => pow($value['m'], $pembagi),
+                        // 'u' => pow($value['u'], $pembagi),
                 ];
             }
         }
+//        exit();
 //        print_r($this->newPairwise);
+//        exit();
         return $this->newPairwise;
+    }
+
+    public function pow_frac($num, $exp) {
+        $fractions = $this->find_fraction($exp);
+        $result = 1;
+
+        foreach ($fractions as $key => $value) {
+            $result *= $this->doSqrt($num, $value);
+        }
+
+        if ($num < 1) {
+            $dec = 1;
+            $a = explode(".", $num);
+            $b = explode("0", $a[1]);
+            foreach ($b as $numKey => $numValue) {
+
+                if ($numValue == "") {
+                    $dec++;
+                } else if ($value !== "" && $value !== ".") {
+                    break;
+                }
+            }
+//            print_r('result  ' . $result . '<br>');
+            $c = explode("0", $num);
+            $currNum = 0;
+            foreach ($c as $key => $value) {
+                if ($value !== "" && $value !== ".") {
+                    $currNum = $value;
+                    break;
+                }
+            }
+//            print_r('result 1 ' . $result . '<br>');
+//            print_r('jumlah dec ' . $dec . '<br>');
+            $dec += strlen($currNum) - 1;
+            $kali = pow(10, $dec);
+            if ($kali == 0 || $kali == INF) {
+                $kali = 0.01;
+            }
+            $result *= pow((1 / $kali), $exp);
+        }
+
+        return $result;
+    }
+
+    public function doSqrt($num, $times) {
+        if ($num < 1) {
+            $a = explode("0", $num);
+            $dec = 0;
+            foreach ($a as $key => $value) {
+                if ($value !== "" && $value !== ".") {
+                    $num = $value;
+                    break;
+                }
+            }
+            for ($i = 0; $i < $times; $i++) {
+                $num = bcsqrt($num);
+            }
+        } else {
+            for ($i = 0; $i < $times; $i++) {
+                $num = bcsqrt($num, 6);
+            }
+        }
+
+        return $num;
+    }
+
+    public function find_fraction($exp) {
+        $i = 0;
+        $result = [];
+        $toleransi = 0.00005;
+//        $toleransi = 0;
+        $sum = 0;
+        while ($i >= 0) {
+            $compare = 1 / pow(2, $i);
+            if ($exp > $compare) {
+                //calculate until close to exp
+
+                $sum += $compare;
+//                print_r($sum . '<br>');
+                if ($sum <= ($exp + $toleransi)) {
+                    array_push($result, $i);
+                    $i++;
+                } else {
+                    break;
+                }
+            } else if ($exp < $compare) {
+                $i++;
+            }
+        }
+//        exit();
+        return $result;
     }
 
     public function createPairwise() {
@@ -158,10 +259,10 @@ class NewFuzzyAHP {
         for ($i = 0; $i < $this->countAnswer; $i++) {
 
             $userId = $this->answers[$i]->rel_user_id;
-            if(!in_array($userId, $this->userIds)){
+            if (!in_array($userId, $this->userIds)) {
                 $this->userIds[] = $userId;
             }
-            
+
             $firstFaktorId = $this->answers[$i]->getQuestionId->first_category_comparation;
             $secondFaktorId = $this->answers[$i]->getQuestionId->second_category_comparation;
 
@@ -228,8 +329,8 @@ class NewFuzzyAHP {
         }
 
         return $this->pairwise;
+//        print_r($this->pairwise);
+//        exit();
     }
-    
-   
 
 }

@@ -271,12 +271,11 @@ class QueryBuilderEngine extends BaseEngine
      */
     protected function compileRelationSearch($query, $relation, $column, $keyword)
     {
-        $myQuery      = clone $this->query;
+        $myQuery = clone $this->query;
 
         /**
          * For compile nested relation, we need store all nested relation as array
          * and reverse order to apply where query.
-         *
          * With this method we can create nested sub query with properly relation.
          */
 
@@ -290,7 +289,7 @@ class QueryBuilderEngine extends BaseEngine
          */
         $lastQuery = $query;
 
-        $relations = explode('.', $relation);
+        $relations    = explode('.', $relation);
         $lastRelation = end($relations);
         foreach ($relations as $relation) {
             $relationType = $myQuery->getModel()->{$relation}();
@@ -313,9 +312,9 @@ class QueryBuilderEngine extends BaseEngine
 
                 // Put require object to next step!!
                 $relationChunk[$relation] = [
-                    'builder' => $builder,
+                    'builder'      => $builder,
                     'relationType' => $relationType,
-                    'query' => $lastQuery
+                    'query'        => $lastQuery,
                 ];
 
                 // This is trick make sub query.
@@ -343,10 +342,10 @@ class QueryBuilderEngine extends BaseEngine
          */
         foreach ($relationChunk as $relation => $chunk) {
             // Prepare variables
-            $builder = $chunk['builder'];
+            $builder      = $chunk['builder'];
             $relationType = $chunk['relationType'];
-            $query = $chunk['query'];
-            $builder = "({$builder->toSql()}) >= 1";
+            $query        = $chunk['query'];
+            $builder      = "({$builder->toSql()}) >= 1";
 
             // Check if it last relation we will use orWhereRaw
             if ($lastRelation == $relation) {
@@ -377,6 +376,33 @@ class QueryBuilderEngine extends BaseEngine
     {
         $column = $this->castColumn($column);
         $sql    = $column . ' LIKE ?';
+
+        /**
+         * Patch for fix about ambiguous field
+         * Ambiguous field error will appear
+         * when query use join table and search with keyword.
+         */
+        // Remove delimiter of column that appear from MYSQL query.
+        $column = str_replace(['`', '"', '[', ']'], '', $column);
+
+        // check . in field name for protect don't add table again
+        // but as far as I tested, this function has single field name only.
+        if (strpos($column, '.') === false) {
+            // Alternative method to check
+            // instanceof \Illuminate\Database\Eloquent\Builder
+            if (method_exists($query, 'getQuery')) {
+                $q = $query->getQuery();
+            } else {
+                $q = $query;
+            }
+
+            // get table from query and add it.
+            $column = $q->from . '.' . $column;
+        }
+        // Add wrap cover table and field name.
+        $column = $this->wrap($column);
+
+        /* end fix */
 
         if ($this->isCaseInsensitive()) {
             $sql = 'LOWER(' . $column . ') LIKE ?';
@@ -433,7 +459,7 @@ class QueryBuilderEngine extends BaseEngine
      */
     public function columnSearch()
     {
-        $columns = $this->request->get('columns', []);
+        $columns = (array) $this->request->input('columns');
 
         foreach ($columns as $index => $column) {
             if (! $this->request->isColumnSearchable($index)) {
@@ -645,8 +671,8 @@ class QueryBuilderEngine extends BaseEngine
      */
     public function paging()
     {
-        $this->query->skip($this->request['start'])
-                    ->take((int) $this->request['length'] > 0 ? $this->request['length'] : 10);
+        $this->query->skip($this->request->input('start'))
+                    ->take((int) $this->request->input('length') > 0 ? $this->request->input('length') : 10);
     }
 
     /**

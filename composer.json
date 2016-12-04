@@ -14,7 +14,8 @@
         "jlapp/swaggervel": "dev-master",
         "doctrine/dbal": "~2.3",
         "yajra/laravel-datatables-oracle": "~6.0",
-        "infyomlabs/generator-builder": "dev-master"
+        "infyomlabs/generator-builder": "dev-master",
+		"litipk/php-bignumbers": "0.7.3"
     },
     "require-dev": {
         "fzaninotto/faker": "~1.4",

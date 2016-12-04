@@ -933,55 +933,6 @@
         ]
     },
     {
-        "name": "phpunit/php-file-iterator",
-        "version": "1.4.1",
-        "version_normalized": "1.4.1.0",
-        "source": {
-            "type": "git",
-            "url": "https://github.com/sebastianbergmann/php-file-iterator.git",
-            "reference": "6150bf2c35d3fc379e50c7602b75caceaa39dbf0"
-        },
-        "dist": {
-            "type": "zip",
-            "url": "https://api.github.com/repos/sebastianbergmann/php-file-iterator/zipball/6150bf2c35d3fc379e50c7602b75caceaa39dbf0",
-            "reference": "6150bf2c35d3fc379e50c7602b75caceaa39dbf0",
-            "shasum": ""
-        },
-        "require": {
-            "php": ">=5.3.3"
-        },
-        "time": "2015-06-21 13:08:43",
-        "type": "library",
-        "extra": {
-            "branch-alias": {
-                "dev-master": "1.4.x-dev"
-            }
-        },
-        "installation-source": "dist",
-        "autoload": {
-            "classmap": [
-                "src/"
-            ]
-        },
-        "notification-url": "https://packagist.org/downloads/",
-        "license": [
-            "BSD-3-Clause"
-        ],
-        "authors": [
-            {
-                "name": "Sebastian Bergmann",
-                "email": "sb@sebastian-bergmann.de",
-                "role": "lead"
-            }
-        ],
-        "description": "FilterIterator implementation that filters files based on a list of suffixes.",
-        "homepage": "https://github.com/sebastianbergmann/php-file-iterator/",
-        "keywords": [
-            "filesystem",
-            "iterator"
-        ]
-    },
-    {
         "name": "phpunit/php-code-coverage",
         "version": "2.2.4",
         "version_normalized": "2.2.4.0",
@@ -1344,81 +1295,6 @@
             "array",
             "collections",
             "iterator"
-        ]
-    },
-    {
-        "name": "doctrine/common",
-        "version": "v2.6.1",
-        "version_normalized": "2.6.1.0",
-        "source": {
-            "type": "git",
-            "url": "https://github.com/doctrine/common.git",
-            "reference": "a579557bc689580c19fee4e27487a67fe60defc0"
-        },
-        "dist": {
-            "type": "zip",
-            "url": "https://api.github.com/repos/doctrine/common/zipball/a579557bc689580c19fee4e27487a67fe60defc0",
-            "reference": "a579557bc689580c19fee4e27487a67fe60defc0",
-            "shasum": ""
-        },
-        "require": {
-            "doctrine/annotations": "1.*",
-            "doctrine/cache": "1.*",
-            "doctrine/collections": "1.*",
-            "doctrine/inflector": "1.*",
-            "doctrine/lexer": "1.*",
-            "php": "~5.5|~7.0"
-        },
-        "require-dev": {
-            "phpunit/phpunit": "~4.8|~5.0"
-        },
-        "time": "2015-12-25 13:18:31",
-        "type": "library",
-        "extra": {
-            "branch-alias": {
-                "dev-master": "2.7.x-dev"
-            }
-        },
-        "installation-source": "dist",
-        "autoload": {
-            "psr-4": {
-                "Doctrine\\Common\\": "lib/Doctrine/Common"
-            }
-        },
-        "notification-url": "https://packagist.org/downloads/",
-        "license": [
-            "MIT"
-        ],
-        "authors": [
-            {
-                "name": "Roman Borschel",
-                "email": "roman@code-factory.org"
-            },
-            {
-                "name": "Benjamin Eberlei",
-                "email": "kontakt@beberlei.de"
-            },
-            {
-                "name": "Guilherme Blanco",
-                "email": "guilhermeblanco@gmail.com"
-            },
-            {
-                "name": "Jonathan Wage",
-                "email": "jonwage@gmail.com"
-            },
-            {
-                "name": "Johannes Schmitt",
-                "email": "schmittjoh@gmail.com"
-            }
-        ],
-        "description": "Common Library for Doctrine projects",
-        "homepage": "http://www.doctrine-project.org",
-        "keywords": [
-            "annotations",
-            "collections",
-            "eventmanager",
-            "persistence",
-            "spl"
         ]
     },
     {
@@ -2393,68 +2269,6 @@
         "homepage": "https://symfony.com"
     },
     {
-        "name": "symfony/event-dispatcher",
-        "version": "v3.1.7",
-        "version_normalized": "3.1.7.0",
-        "source": {
-            "type": "git",
-            "url": "https://github.com/symfony/event-dispatcher.git",
-            "reference": "28b0832b2553ffb80cabef6a7a812ff1e670c0bc"
-        },
-        "dist": {
-            "type": "zip",
-            "url": "https://api.github.com/repos/symfony/event-dispatcher/zipball/28b0832b2553ffb80cabef6a7a812ff1e670c0bc",
-            "reference": "28b0832b2553ffb80cabef6a7a812ff1e670c0bc",
-            "shasum": ""
-        },
-        "require": {
-            "php": ">=5.5.9"
-        },
-        "require-dev": {
-            "psr/log": "~1.0",
-            "symfony/config": "~2.8|~3.0",
-            "symfony/dependency-injection": "~2.8|~3.0",
-            "symfony/expression-language": "~2.8|~3.0",
-            "symfony/stopwatch": "~2.8|~3.0"
-        },
-        "suggest": {
-            "symfony/dependency-injection": "",
-            "symfony/http-kernel": ""
-        },
-        "time": "2016-10-13 06:28:43",
-        "type": "library",
-        "extra": {
-            "branch-alias": {
-                "dev-master": "3.1-dev"
-            }
-        },
-        "installation-source": "dist",
-        "autoload": {
-            "psr-4": {
-                "Symfony\\Component\\EventDispatcher\\": ""
-            },
-            "exclude-from-classmap": [
-                "/Tests/"
-            ]
-        },
-        "notification-url": "https://packagist.org/downloads/",
-        "license": [
-            "MIT"
-        ],
-        "authors": [
-            {
-                "name": "Fabien Potencier",
-                "email": "fabien@symfony.com"
-            },
-            {
-                "name": "Symfony Community",
-                "homepage": "https://symfony.com/contributors"
-            }
-        ],
-        "description": "Symfony EventDispatcher Component",
-        "homepage": "https://symfony.com"
-    },
-    {
         "name": "psr/log",
         "version": "1.0.2",
         "version_normalized": "1.0.2.0",
@@ -2760,61 +2574,6 @@
         "homepage": "https://symfony.com"
     },
     {
-        "name": "swiftmailer/swiftmailer",
-        "version": "v5.4.3",
-        "version_normalized": "5.4.3.0",
-        "source": {
-            "type": "git",
-            "url": "https://github.com/swiftmailer/swiftmailer.git",
-            "reference": "4cc92842069c2bbc1f28daaaf1d2576ec4dfe153"
-        },
-        "dist": {
-            "type": "zip",
-            "url": "https://api.github.com/repos/swiftmailer/swiftmailer/zipball/4cc92842069c2bbc1f28daaaf1d2576ec4dfe153",
-            "reference": "4cc92842069c2bbc1f28daaaf1d2576ec4dfe153",
-            "shasum": ""
-        },
-        "require": {
-            "php": ">=5.3.3"
-        },
-        "require-dev": {
-            "mockery/mockery": "~0.9.1"
-        },
-        "time": "2016-07-08 11:51:25",
-        "type": "library",
-        "extra": {
-            "branch-alias": {
-                "dev-master": "5.4-dev"
-            }
-        },
-        "installation-source": "dist",
-        "autoload": {
-            "files": [
-                "lib/swift_required.php"
-            ]
-        },
-        "notification-url": "https://packagist.org/downloads/",
-        "license": [
-            "MIT"
-        ],
-        "authors": [
-            {
-                "name": "Chris Corbyn"
-            },
-            {
-                "name": "Fabien Potencier",
-                "email": "fabien@symfony.com"
-            }
-        ],
-        "description": "Swiftmailer, free feature-rich PHP mailer",
-        "homepage": "http://swiftmailer.org",
-        "keywords": [
-            "email",
-            "mail",
-            "mailer"
-        ]
-    },
-    {
         "name": "nikic/php-parser",
         "version": "v2.1.1",
         "version_normalized": "2.1.1.0",
@@ -2865,86 +2624,6 @@
         "keywords": [
             "parser",
             "php"
-        ]
-    },
-    {
-        "name": "monolog/monolog",
-        "version": "1.21.0",
-        "version_normalized": "1.21.0.0",
-        "source": {
-            "type": "git",
-            "url": "https://github.com/Seldaek/monolog.git",
-            "reference": "f42fbdfd53e306bda545845e4dbfd3e72edb4952"
-        },
-        "dist": {
-            "type": "zip",
-            "url": "https://api.github.com/repos/Seldaek/monolog/zipball/f42fbdfd53e306bda545845e4dbfd3e72edb4952",
-            "reference": "f42fbdfd53e306bda545845e4dbfd3e72edb4952",
-            "shasum": ""
-        },
-        "require": {
-            "php": ">=5.3.0",
-            "psr/log": "~1.0"
-        },
-        "provide": {
-            "psr/log-implementation": "1.0.0"
-        },
-        "require-dev": {
-            "aws/aws-sdk-php": "^2.4.9",
-            "doctrine/couchdb": "~1.0@dev",
-            "graylog2/gelf-php": "~1.0",
-            "jakub-onderka/php-parallel-lint": "0.9",
-            "php-amqplib/php-amqplib": "~2.4",
-            "php-console/php-console": "^3.1.3",
-            "phpunit/phpunit": "~4.5",
-            "phpunit/phpunit-mock-objects": "2.3.0",
-            "ruflin/elastica": ">=0.90 <3.0",
-            "sentry/sentry": "^0.13",
-            "swiftmailer/swiftmailer": "~5.3"
-        },
-        "suggest": {
-            "aws/aws-sdk-php": "Allow sending log messages to AWS services like DynamoDB",
-            "doctrine/couchdb": "Allow sending log messages to a CouchDB server",
-            "ext-amqp": "Allow sending log messages to an AMQP server (1.0+ required)",
-            "ext-mongo": "Allow sending log messages to a MongoDB server",
-            "graylog2/gelf-php": "Allow sending log messages to a GrayLog2 server",
-            "mongodb/mongodb": "Allow sending log messages to a MongoDB server via PHP Driver",
-            "php-amqplib/php-amqplib": "Allow sending log messages to an AMQP server using php-amqplib",
-            "php-console/php-console": "Allow sending log messages to Google Chrome",
-            "rollbar/rollbar": "Allow sending log messages to Rollbar",
-            "ruflin/elastica": "Allow sending log messages to an Elastic Search server",
-            "sentry/sentry": "Allow sending log messages to a Sentry server"
-        },
-        "time": "2016-07-29 03:23:52",
-        "type": "library",
-        "extra": {
-            "branch-alias": {
-                "dev-master": "2.0.x-dev"
-            }
-        },
-        "installation-source": "dist",
-        "autoload": {
-            "psr-4": {
-                "Monolog\\": "src/Monolog"
-            }
-        },
-        "notification-url": "https://packagist.org/downloads/",
-        "license": [
-            "MIT"
-        ],
-        "authors": [
-            {
-                "name": "Jordi Boggiano",
-                "email": "j.boggiano@seld.be",
-                "homepage": "http://seld.be"
-            }
-        ],
-        "description": "Sends your logs to files, sockets, inboxes, databases and various web services",
-        "homepage": "http://github.com/Seldaek/monolog",
-        "keywords": [
-            "log",
-            "logging",
-            "psr-3"
         ]
     },
     {
@@ -3483,68 +3162,6 @@
         "homepage": "https://github.com/dompdf/dompdf"
     },
     {
-        "name": "yajra/laravel-datatables-oracle",
-        "version": "v6.22.0",
-        "version_normalized": "6.22.0.0",
-        "source": {
-            "type": "git",
-            "url": "https://github.com/yajra/laravel-datatables.git",
-            "reference": "067994638d831872ca7a6ec9d016e07765723cf9"
-        },
-        "dist": {
-            "type": "zip",
-            "url": "https://api.github.com/repos/yajra/laravel-datatables/zipball/067994638d831872ca7a6ec9d016e07765723cf9",
-            "reference": "067994638d831872ca7a6ec9d016e07765723cf9",
-            "shasum": ""
-        },
-        "require": {
-            "dompdf/dompdf": "^0.7",
-            "illuminate/database": "~5.0",
-            "illuminate/filesystem": "~5.0",
-            "illuminate/http": "~5.0",
-            "illuminate/support": "~5.0",
-            "illuminate/view": "~5.0",
-            "laravelcollective/html": "~5.0",
-            "league/fractal": "~0.14",
-            "maatwebsite/excel": "^2.0",
-            "php": ">=5.5.9"
-        },
-        "require-dev": {
-            "mockery/mockery": "~0.9",
-            "phpunit/phpunit": "~4.0"
-        },
-        "suggest": {
-            "barryvdh/laravel-snappy": "Allows exporting of dataTable to PDF using the print view."
-        },
-        "time": "2016-11-19 07:57:18",
-        "type": "library",
-        "installation-source": "dist",
-        "autoload": {
-            "psr-4": {
-                "Yajra\\Datatables\\": "src/"
-            }
-        },
-        "notification-url": "https://packagist.org/downloads/",
-        "license": [
-            "MIT"
-        ],
-        "authors": [
-            {
-                "name": "Arjay Angeles",
-                "email": "aqangeles@gmail.com"
-            }
-        ],
-        "description": "jQuery DataTables API for Laravel 4|5",
-        "keywords": [
-            "datatable",
-            "datatables",
-            "datatables jquery plugin",
-            "laravel",
-            "laravel4",
-            "laravel5"
-        ]
-    },
-    {
         "name": "mockery/mockery",
         "version": "0.9.6",
         "version_normalized": "0.9.6.0",
@@ -3610,57 +3227,6 @@
             "test double",
             "testing"
         ]
-    },
-    {
-        "name": "symfony/yaml",
-        "version": "v3.1.7",
-        "version_normalized": "3.1.7.0",
-        "source": {
-            "type": "git",
-            "url": "https://github.com/symfony/yaml.git",
-            "reference": "9da375317228e54f4ea1b013b30fa47417e84943"
-        },
-        "dist": {
-            "type": "zip",
-            "url": "https://api.github.com/repos/symfony/yaml/zipball/9da375317228e54f4ea1b013b30fa47417e84943",
-            "reference": "9da375317228e54f4ea1b013b30fa47417e84943",
-            "shasum": ""
-        },
-        "require": {
-            "php": ">=5.5.9"
-        },
-        "time": "2016-11-18 21:05:29",
-        "type": "library",
-        "extra": {
-            "branch-alias": {
-                "dev-master": "3.1-dev"
-            }
-        },
-        "installation-source": "dist",
-        "autoload": {
-            "psr-4": {
-                "Symfony\\Component\\Yaml\\": ""
-            },
-            "exclude-from-classmap": [
-                "/Tests/"
-            ]
-        },
-        "notification-url": "https://packagist.org/downloads/",
-        "license": [
-            "MIT"
-        ],
-        "authors": [
-            {
-                "name": "Fabien Potencier",
-                "email": "fabien@symfony.com"
-            },
-            {
-                "name": "Symfony Community",
-                "homepage": "https://symfony.com/contributors"
-            }
-        ],
-        "description": "Symfony Yaml Component",
-        "homepage": "https://symfony.com"
     },
     {
         "name": "sebastian/exporter",
@@ -3901,58 +3467,6 @@
         ]
     },
     {
-        "name": "webmozart/assert",
-        "version": "1.1.0",
-        "version_normalized": "1.1.0.0",
-        "source": {
-            "type": "git",
-            "url": "https://github.com/webmozart/assert.git",
-            "reference": "bb2d123231c095735130cc8f6d31385a44c7b308"
-        },
-        "dist": {
-            "type": "zip",
-            "url": "https://api.github.com/repos/webmozart/assert/zipball/bb2d123231c095735130cc8f6d31385a44c7b308",
-            "reference": "bb2d123231c095735130cc8f6d31385a44c7b308",
-            "shasum": ""
-        },
-        "require": {
-            "php": "^5.3.3|^7.0"
-        },
-        "require-dev": {
-            "phpunit/phpunit": "^4.6",
-            "sebastian/version": "^1.0.1"
-        },
-        "time": "2016-08-09 15:02:57",
-        "type": "library",
-        "extra": {
-            "branch-alias": {
-                "dev-master": "1.2-dev"
-            }
-        },
-        "installation-source": "dist",
-        "autoload": {
-            "psr-4": {
-                "Webmozart\\Assert\\": "src/"
-            }
-        },
-        "notification-url": "https://packagist.org/downloads/",
-        "license": [
-            "MIT"
-        ],
-        "authors": [
-            {
-                "name": "Bernhard Schussek",
-                "email": "bschussek@gmail.com"
-            }
-        ],
-        "description": "Assertions to validate method input/output with nice error messages.",
-        "keywords": [
-            "assert",
-            "check",
-            "validate"
-        ]
-    },
-    {
         "name": "phpdocumentor/reflection-common",
         "version": "1.0",
         "version_normalized": "1.0.0.0",
@@ -4009,55 +3523,6 @@
         ]
     },
     {
-        "name": "phpdocumentor/type-resolver",
-        "version": "0.2",
-        "version_normalized": "0.2.0.0",
-        "source": {
-            "type": "git",
-            "url": "https://github.com/phpDocumentor/TypeResolver.git",
-            "reference": "b39c7a5b194f9ed7bd0dd345c751007a41862443"
-        },
-        "dist": {
-            "type": "zip",
-            "url": "https://api.github.com/repos/phpDocumentor/TypeResolver/zipball/b39c7a5b194f9ed7bd0dd345c751007a41862443",
-            "reference": "b39c7a5b194f9ed7bd0dd345c751007a41862443",
-            "shasum": ""
-        },
-        "require": {
-            "php": ">=5.5",
-            "phpdocumentor/reflection-common": "^1.0"
-        },
-        "require-dev": {
-            "mockery/mockery": "^0.9.4",
-            "phpunit/phpunit": "^5.2||^4.8.24"
-        },
-        "time": "2016-06-10 07:14:17",
-        "type": "library",
-        "extra": {
-            "branch-alias": {
-                "dev-master": "1.0.x-dev"
-            }
-        },
-        "installation-source": "dist",
-        "autoload": {
-            "psr-4": {
-                "phpDocumentor\\Reflection\\": [
-                    "src/"
-                ]
-            }
-        },
-        "notification-url": "https://packagist.org/downloads/",
-        "license": [
-            "MIT"
-        ],
-        "authors": [
-            {
-                "name": "Mike van Riel",
-                "email": "me@mikevanriel.com"
-            }
-        ]
-    },
-    {
         "name": "phpdocumentor/reflection-docblock",
         "version": "3.1.1",
         "version_normalized": "3.1.1.0",
@@ -4103,144 +3568,6 @@
             }
         ],
         "description": "With this component, a library can provide support for annotations via DocBlocks or otherwise retrieve information that is embedded in a DocBlock."
-    },
-    {
-        "name": "phpspec/prophecy",
-        "version": "v1.6.1",
-        "version_normalized": "1.6.1.0",
-        "source": {
-            "type": "git",
-            "url": "https://github.com/phpspec/prophecy.git",
-            "reference": "58a8137754bc24b25740d4281399a4a3596058e0"
-        },
-        "dist": {
-            "type": "zip",
-            "url": "https://api.github.com/repos/phpspec/prophecy/zipball/58a8137754bc24b25740d4281399a4a3596058e0",
-            "reference": "58a8137754bc24b25740d4281399a4a3596058e0",
-            "shasum": ""
-        },
-        "require": {
-            "doctrine/instantiator": "^1.0.2",
-            "php": "^5.3|^7.0",
-            "phpdocumentor/reflection-docblock": "^2.0|^3.0.2",
-            "sebastian/comparator": "^1.1",
-            "sebastian/recursion-context": "^1.0"
-        },
-        "require-dev": {
-            "phpspec/phpspec": "^2.0"
-        },
-        "time": "2016-06-07 08:13:47",
-        "type": "library",
-        "extra": {
-            "branch-alias": {
-                "dev-master": "1.6.x-dev"
-            }
-        },
-        "installation-source": "dist",
-        "autoload": {
-            "psr-0": {
-                "Prophecy\\": "src/"
-            }
-        },
-        "notification-url": "https://packagist.org/downloads/",
-        "license": [
-            "MIT"
-        ],
-        "authors": [
-            {
-                "name": "Konstantin Kudryashov",
-                "email": "ever.zet@gmail.com",
-                "homepage": "http://everzet.com"
-            },
-            {
-                "name": "Marcello Duarte",
-                "email": "marcello.duarte@gmail.com"
-            }
-        ],
-        "description": "Highly opinionated mocking framework for PHP 5.3+",
-        "homepage": "https://github.com/phpspec/prophecy",
-        "keywords": [
-            "Double",
-            "Dummy",
-            "fake",
-            "mock",
-            "spy",
-            "stub"
-        ]
-    },
-    {
-        "name": "phpunit/phpunit",
-        "version": "4.8.28",
-        "version_normalized": "4.8.28.0",
-        "source": {
-            "type": "git",
-            "url": "https://github.com/sebastianbergmann/phpunit.git",
-            "reference": "558a3a0d28b4cb7e4a593a4fbd2220e787076225"
-        },
-        "dist": {
-            "type": "zip",
-            "url": "https://api.github.com/repos/sebastianbergmann/phpunit/zipball/558a3a0d28b4cb7e4a593a4fbd2220e787076225",
-            "reference": "558a3a0d28b4cb7e4a593a4fbd2220e787076225",
-            "shasum": ""
-        },
-        "require": {
-            "ext-dom": "*",
-            "ext-json": "*",
-            "ext-pcre": "*",
-            "ext-reflection": "*",
-            "ext-spl": "*",
-            "php": ">=5.3.3",
-            "phpspec/prophecy": "^1.3.1",
-            "phpunit/php-code-coverage": "~2.1",
-            "phpunit/php-file-iterator": "~1.4",
-            "phpunit/php-text-template": "~1.2",
-            "phpunit/php-timer": "^1.0.6",
-            "phpunit/phpunit-mock-objects": "~2.3",
-            "sebastian/comparator": "~1.1",
-            "sebastian/diff": "~1.2",
-            "sebastian/environment": "~1.3",
-            "sebastian/exporter": "~1.2",
-            "sebastian/global-state": "~1.0",
-            "sebastian/version": "~1.0",
-            "symfony/yaml": "~2.1|~3.0"
-        },
-        "suggest": {
-            "phpunit/php-invoker": "~1.1"
-        },
-        "time": "2016-11-14 06:25:28",
-        "bin": [
-            "phpunit"
-        ],
-        "type": "library",
-        "extra": {
-            "branch-alias": {
-                "dev-master": "4.8.x-dev"
-            }
-        },
-        "installation-source": "dist",
-        "autoload": {
-            "classmap": [
-                "src/"
-            ]
-        },
-        "notification-url": "https://packagist.org/downloads/",
-        "license": [
-            "BSD-3-Clause"
-        ],
-        "authors": [
-            {
-                "name": "Sebastian Bergmann",
-                "email": "sebastian@phpunit.de",
-                "role": "lead"
-            }
-        ],
-        "description": "The PHP Unit Testing framework.",
-        "homepage": "https://phpunit.de/",
-        "keywords": [
-            "phpunit",
-            "testing",
-            "xunit"
-        ]
     },
     {
         "name": "symfony/dom-crawler",
@@ -4624,87 +3951,87 @@
         ]
     },
     {
-        "name": "fx3costa/laravelchartjs",
-        "version": "1.3.4",
-        "version_normalized": "1.3.4.0",
+        "name": "phpunit/php-file-iterator",
+        "version": "1.4.2",
+        "version_normalized": "1.4.2.0",
         "source": {
             "type": "git",
-            "url": "https://github.com/fxcosta/laravel-chartjs.git",
-            "reference": "997361cd0e50dda9547dbf58bafbc2d1d6c7dd11"
+            "url": "https://github.com/sebastianbergmann/php-file-iterator.git",
+            "reference": "3cc8f69b3028d0f96a9078e6295d86e9bf019be5"
         },
         "dist": {
             "type": "zip",
-            "url": "https://api.github.com/repos/fxcosta/laravel-chartjs/zipball/997361cd0e50dda9547dbf58bafbc2d1d6c7dd11",
-            "reference": "997361cd0e50dda9547dbf58bafbc2d1d6c7dd11",
+            "url": "https://api.github.com/repos/sebastianbergmann/php-file-iterator/zipball/3cc8f69b3028d0f96a9078e6295d86e9bf019be5",
+            "reference": "3cc8f69b3028d0f96a9078e6295d86e9bf019be5",
             "shasum": ""
         },
         "require": {
-            "laravel/framework": "5.*",
-            "php": ">=5.5.9"
+            "php": ">=5.3.3"
         },
-        "time": "2016-04-09 05:14:01",
+        "time": "2016-10-03 07:40:28",
         "type": "library",
+        "extra": {
+            "branch-alias": {
+                "dev-master": "1.4.x-dev"
+            }
+        },
         "installation-source": "dist",
         "autoload": {
-            "psr-4": {
-                "Fx3costa\\Laravelchartjs\\": "src/"
-            }
+            "classmap": [
+                "src/"
+            ]
         },
         "notification-url": "https://packagist.org/downloads/",
         "license": [
-            "MIT"
+            "BSD-3-Clause"
         ],
         "authors": [
             {
-                "name": "Felix",
-                "email": "fx3costa@gmail.com"
+                "name": "Sebastian Bergmann",
+                "email": "sb@sebastian-bergmann.de",
+                "role": "lead"
             }
         ],
-        "description": "Simples package para facilitar e automatizar o uso de graficos no Laravel 5.x usando a lib Chartjs",
+        "description": "FilterIterator implementation that filters files based on a list of suffixes.",
+        "homepage": "https://github.com/sebastianbergmann/php-file-iterator/",
         "keywords": [
-            "chart",
-            "chartjs",
-            "fx3costa",
-            "graphics",
-            "laravel5",
-            "reports"
+            "filesystem",
+            "iterator"
         ]
     },
     {
-        "name": "khill/lavacharts",
-        "version": "3.0.4",
-        "version_normalized": "3.0.4.0",
+        "name": "webmozart/assert",
+        "version": "1.2.0",
+        "version_normalized": "1.2.0.0",
         "source": {
             "type": "git",
-            "url": "https://github.com/kevinkhill/lavacharts.git",
-            "reference": "c95cf815948db511c9c44270d50f7bc37861d81d"
+            "url": "https://github.com/webmozart/assert.git",
+            "reference": "2db61e59ff05fe5126d152bd0655c9ea113e550f"
         },
         "dist": {
             "type": "zip",
-            "url": "https://api.github.com/repos/kevinkhill/lavacharts/zipball/c95cf815948db511c9c44270d50f7bc37861d81d",
-            "reference": "c95cf815948db511c9c44270d50f7bc37861d81d",
+            "url": "https://api.github.com/repos/webmozart/assert/zipball/2db61e59ff05fe5126d152bd0655c9ea113e550f",
+            "reference": "2db61e59ff05fe5126d152bd0655c9ea113e550f",
             "shasum": ""
         },
         "require": {
-            "nesbot/carbon": "~1.14",
-            "php": ">=5.4.0"
+            "php": "^5.3.3 || ^7.0"
         },
         "require-dev": {
-            "mockery/mockery": "~0.9",
-            "mybuilder/phpunit-accelerator": "~1.1",
-            "phpunit/phpunit": "~4.5",
-            "satooshi/php-coveralls": "~1.0",
-            "squizlabs/php_codesniffer": "~2.5"
+            "phpunit/phpunit": "^4.6",
+            "sebastian/version": "^1.0.1"
         },
-        "suggest": {
-            "khill/datatableplus": "Adds extra features to DataTables such as csv and laravel collection parsing."
-        },
-        "time": "2016-04-28 14:43:39",
+        "time": "2016-11-23 20:04:58",
         "type": "library",
+        "extra": {
+            "branch-alias": {
+                "dev-master": "1.3-dev"
+            }
+        },
         "installation-source": "dist",
         "autoload": {
             "psr-4": {
-                "Khill\\Lavacharts\\": "src/"
+                "Webmozart\\Assert\\": "src/"
             }
         },
         "notification-url": "https://packagist.org/downloads/",
@@ -4713,52 +4040,686 @@
         ],
         "authors": [
             {
-                "name": "Kevin Hill",
-                "email": "kevinkhill@gmail.com",
-                "role": "Creator"
-            },
-            {
-                "name": "deringer",
-                "homepage": "https://github.com/deringer",
-                "role": "Contributor"
-            },
-            {
-                "name": "stevebauman",
-                "homepage": "https://github.com/stevebauman",
-                "role": "Contributor"
-            },
-            {
-                "name": "rajivseelam",
-                "homepage": "https://github.com/rajivseelam",
-                "role": "Contributor"
-            },
-            {
-                "name": "tobias-kuendig",
-                "homepage": "https://github.com/tobias-kuendig",
-                "role": "Contributor"
-            },
-            {
-                "name": "Stonos",
-                "homepage": "https://github.com/Stonos",
-                "role": "Contributor"
-            },
-            {
-                "name": "MicahKV",
-                "email": "micah138@yahoo.com",
-                "role": "Contributor"
-            },
-            {
-                "name": "SendDerek",
-                "homepage": "https://github.com/SendDerek",
-                "role": "Contributor"
+                "name": "Bernhard Schussek",
+                "email": "bschussek@gmail.com"
             }
         ],
-        "description": "PHP wrapper library for the Google Chart API",
-        "homepage": "http://lavacharts.com",
+        "description": "Assertions to validate method input/output with nice error messages.",
         "keywords": [
-            "charts",
-            "google",
-            "graphs"
+            "assert",
+            "check",
+            "validate"
+        ]
+    },
+    {
+        "name": "phpdocumentor/type-resolver",
+        "version": "0.2.1",
+        "version_normalized": "0.2.1.0",
+        "source": {
+            "type": "git",
+            "url": "https://github.com/phpDocumentor/TypeResolver.git",
+            "reference": "e224fb2ea2fba6d3ad6fdaef91cd09a172155ccb"
+        },
+        "dist": {
+            "type": "zip",
+            "url": "https://api.github.com/repos/phpDocumentor/TypeResolver/zipball/e224fb2ea2fba6d3ad6fdaef91cd09a172155ccb",
+            "reference": "e224fb2ea2fba6d3ad6fdaef91cd09a172155ccb",
+            "shasum": ""
+        },
+        "require": {
+            "php": ">=5.5",
+            "phpdocumentor/reflection-common": "^1.0"
+        },
+        "require-dev": {
+            "mockery/mockery": "^0.9.4",
+            "phpunit/phpunit": "^5.2||^4.8.24"
+        },
+        "time": "2016-11-25 06:54:22",
+        "type": "library",
+        "extra": {
+            "branch-alias": {
+                "dev-master": "1.0.x-dev"
+            }
+        },
+        "installation-source": "dist",
+        "autoload": {
+            "psr-4": {
+                "phpDocumentor\\Reflection\\": [
+                    "src/"
+                ]
+            }
+        },
+        "notification-url": "https://packagist.org/downloads/",
+        "license": [
+            "MIT"
+        ],
+        "authors": [
+            {
+                "name": "Mike van Riel",
+                "email": "me@mikevanriel.com"
+            }
+        ]
+    },
+    {
+        "name": "phpspec/prophecy",
+        "version": "v1.6.2",
+        "version_normalized": "1.6.2.0",
+        "source": {
+            "type": "git",
+            "url": "https://github.com/phpspec/prophecy.git",
+            "reference": "6c52c2722f8460122f96f86346600e1077ce22cb"
+        },
+        "dist": {
+            "type": "zip",
+            "url": "https://api.github.com/repos/phpspec/prophecy/zipball/6c52c2722f8460122f96f86346600e1077ce22cb",
+            "reference": "6c52c2722f8460122f96f86346600e1077ce22cb",
+            "shasum": ""
+        },
+        "require": {
+            "doctrine/instantiator": "^1.0.2",
+            "php": "^5.3|^7.0",
+            "phpdocumentor/reflection-docblock": "^2.0|^3.0.2",
+            "sebastian/comparator": "^1.1",
+            "sebastian/recursion-context": "^1.0|^2.0"
+        },
+        "require-dev": {
+            "phpspec/phpspec": "^2.0",
+            "phpunit/phpunit": "^4.8 || ^5.6.5"
+        },
+        "time": "2016-11-21 14:58:47",
+        "type": "library",
+        "extra": {
+            "branch-alias": {
+                "dev-master": "1.6.x-dev"
+            }
+        },
+        "installation-source": "dist",
+        "autoload": {
+            "psr-0": {
+                "Prophecy\\": "src/"
+            }
+        },
+        "notification-url": "https://packagist.org/downloads/",
+        "license": [
+            "MIT"
+        ],
+        "authors": [
+            {
+                "name": "Konstantin Kudryashov",
+                "email": "ever.zet@gmail.com",
+                "homepage": "http://everzet.com"
+            },
+            {
+                "name": "Marcello Duarte",
+                "email": "marcello.duarte@gmail.com"
+            }
+        ],
+        "description": "Highly opinionated mocking framework for PHP 5.3+",
+        "homepage": "https://github.com/phpspec/prophecy",
+        "keywords": [
+            "Double",
+            "Dummy",
+            "fake",
+            "mock",
+            "spy",
+            "stub"
+        ]
+    },
+    {
+        "name": "phpunit/phpunit",
+        "version": "4.8.29",
+        "version_normalized": "4.8.29.0",
+        "source": {
+            "type": "git",
+            "url": "https://github.com/sebastianbergmann/phpunit.git",
+            "reference": "f19d481b468b76a7fb55eb2b772ed487e484891e"
+        },
+        "dist": {
+            "type": "zip",
+            "url": "https://api.github.com/repos/sebastianbergmann/phpunit/zipball/f19d481b468b76a7fb55eb2b772ed487e484891e",
+            "reference": "f19d481b468b76a7fb55eb2b772ed487e484891e",
+            "shasum": ""
+        },
+        "require": {
+            "ext-dom": "*",
+            "ext-json": "*",
+            "ext-pcre": "*",
+            "ext-reflection": "*",
+            "ext-spl": "*",
+            "php": ">=5.3.3",
+            "phpspec/prophecy": "^1.3.1",
+            "phpunit/php-code-coverage": "~2.1",
+            "phpunit/php-file-iterator": "~1.4",
+            "phpunit/php-text-template": "~1.2",
+            "phpunit/php-timer": "^1.0.6",
+            "phpunit/phpunit-mock-objects": "~2.3",
+            "sebastian/comparator": "~1.2.2",
+            "sebastian/diff": "~1.2",
+            "sebastian/environment": "~1.3",
+            "sebastian/exporter": "~1.2",
+            "sebastian/global-state": "~1.0",
+            "sebastian/version": "~1.0",
+            "symfony/yaml": "~2.1|~3.0"
+        },
+        "suggest": {
+            "phpunit/php-invoker": "~1.1"
+        },
+        "time": "2016-11-20 10:35:28",
+        "bin": [
+            "phpunit"
+        ],
+        "type": "library",
+        "extra": {
+            "branch-alias": {
+                "dev-master": "4.8.x-dev"
+            }
+        },
+        "installation-source": "dist",
+        "autoload": {
+            "classmap": [
+                "src/"
+            ]
+        },
+        "notification-url": "https://packagist.org/downloads/",
+        "license": [
+            "BSD-3-Clause"
+        ],
+        "authors": [
+            {
+                "name": "Sebastian Bergmann",
+                "email": "sebastian@phpunit.de",
+                "role": "lead"
+            }
+        ],
+        "description": "The PHP Unit Testing framework.",
+        "homepage": "https://phpunit.de/",
+        "keywords": [
+            "phpunit",
+            "testing",
+            "xunit"
+        ]
+    },
+    {
+        "name": "monolog/monolog",
+        "version": "1.22.0",
+        "version_normalized": "1.22.0.0",
+        "source": {
+            "type": "git",
+            "url": "https://github.com/Seldaek/monolog.git",
+            "reference": "bad29cb8d18ab0315e6c477751418a82c850d558"
+        },
+        "dist": {
+            "type": "zip",
+            "url": "https://api.github.com/repos/Seldaek/monolog/zipball/bad29cb8d18ab0315e6c477751418a82c850d558",
+            "reference": "bad29cb8d18ab0315e6c477751418a82c850d558",
+            "shasum": ""
+        },
+        "require": {
+            "php": ">=5.3.0",
+            "psr/log": "~1.0"
+        },
+        "provide": {
+            "psr/log-implementation": "1.0.0"
+        },
+        "require-dev": {
+            "aws/aws-sdk-php": "^2.4.9 || ^3.0",
+            "doctrine/couchdb": "~1.0@dev",
+            "graylog2/gelf-php": "~1.0",
+            "jakub-onderka/php-parallel-lint": "0.9",
+            "php-amqplib/php-amqplib": "~2.4",
+            "php-console/php-console": "^3.1.3",
+            "phpunit/phpunit": "~4.5",
+            "phpunit/phpunit-mock-objects": "2.3.0",
+            "ruflin/elastica": ">=0.90 <3.0",
+            "sentry/sentry": "^0.13",
+            "swiftmailer/swiftmailer": "~5.3"
+        },
+        "suggest": {
+            "aws/aws-sdk-php": "Allow sending log messages to AWS services like DynamoDB",
+            "doctrine/couchdb": "Allow sending log messages to a CouchDB server",
+            "ext-amqp": "Allow sending log messages to an AMQP server (1.0+ required)",
+            "ext-mongo": "Allow sending log messages to a MongoDB server",
+            "graylog2/gelf-php": "Allow sending log messages to a GrayLog2 server",
+            "mongodb/mongodb": "Allow sending log messages to a MongoDB server via PHP Driver",
+            "php-amqplib/php-amqplib": "Allow sending log messages to an AMQP server using php-amqplib",
+            "php-console/php-console": "Allow sending log messages to Google Chrome",
+            "rollbar/rollbar": "Allow sending log messages to Rollbar",
+            "ruflin/elastica": "Allow sending log messages to an Elastic Search server",
+            "sentry/sentry": "Allow sending log messages to a Sentry server"
+        },
+        "time": "2016-11-26 00:15:39",
+        "type": "library",
+        "extra": {
+            "branch-alias": {
+                "dev-master": "2.0.x-dev"
+            }
+        },
+        "installation-source": "dist",
+        "autoload": {
+            "psr-4": {
+                "Monolog\\": "src/Monolog"
+            }
+        },
+        "notification-url": "https://packagist.org/downloads/",
+        "license": [
+            "MIT"
+        ],
+        "authors": [
+            {
+                "name": "Jordi Boggiano",
+                "email": "j.boggiano@seld.be",
+                "homepage": "http://seld.be"
+            }
+        ],
+        "description": "Sends your logs to files, sockets, inboxes, databases and various web services",
+        "homepage": "http://github.com/Seldaek/monolog",
+        "keywords": [
+            "log",
+            "logging",
+            "psr-3"
+        ]
+    },
+    {
+        "name": "swiftmailer/swiftmailer",
+        "version": "v5.4.4",
+        "version_normalized": "5.4.4.0",
+        "source": {
+            "type": "git",
+            "url": "https://github.com/swiftmailer/swiftmailer.git",
+            "reference": "545ce9136690cea74f98f86fbb9c92dd9ab1a756"
+        },
+        "dist": {
+            "type": "zip",
+            "url": "https://api.github.com/repos/swiftmailer/swiftmailer/zipball/545ce9136690cea74f98f86fbb9c92dd9ab1a756",
+            "reference": "545ce9136690cea74f98f86fbb9c92dd9ab1a756",
+            "shasum": ""
+        },
+        "require": {
+            "php": ">=5.3.3"
+        },
+        "require-dev": {
+            "mockery/mockery": "~0.9.1"
+        },
+        "time": "2016-11-24 01:01:23",
+        "type": "library",
+        "extra": {
+            "branch-alias": {
+                "dev-master": "5.4-dev"
+            }
+        },
+        "installation-source": "dist",
+        "autoload": {
+            "files": [
+                "lib/swift_required.php"
+            ]
+        },
+        "notification-url": "https://packagist.org/downloads/",
+        "license": [
+            "MIT"
+        ],
+        "authors": [
+            {
+                "name": "Chris Corbyn"
+            },
+            {
+                "name": "Fabien Potencier",
+                "email": "fabien@symfony.com"
+            }
+        ],
+        "description": "Swiftmailer, free feature-rich PHP mailer",
+        "homepage": "http://swiftmailer.org",
+        "keywords": [
+            "email",
+            "mail",
+            "mailer"
+        ]
+    },
+    {
+        "name": "symfony/event-dispatcher",
+        "version": "v3.2.0",
+        "version_normalized": "3.2.0.0",
+        "source": {
+            "type": "git",
+            "url": "https://github.com/symfony/event-dispatcher.git",
+            "reference": "e8f47a327c2f0fd5aa04fa60af2b693006ed7283"
+        },
+        "dist": {
+            "type": "zip",
+            "url": "https://api.github.com/repos/symfony/event-dispatcher/zipball/e8f47a327c2f0fd5aa04fa60af2b693006ed7283",
+            "reference": "e8f47a327c2f0fd5aa04fa60af2b693006ed7283",
+            "shasum": ""
+        },
+        "require": {
+            "php": ">=5.5.9"
+        },
+        "require-dev": {
+            "psr/log": "~1.0",
+            "symfony/config": "~2.8|~3.0",
+            "symfony/dependency-injection": "~2.8|~3.0",
+            "symfony/expression-language": "~2.8|~3.0",
+            "symfony/stopwatch": "~2.8|~3.0"
+        },
+        "suggest": {
+            "symfony/dependency-injection": "",
+            "symfony/http-kernel": ""
+        },
+        "time": "2016-10-13 06:29:04",
+        "type": "library",
+        "extra": {
+            "branch-alias": {
+                "dev-master": "3.2-dev"
+            }
+        },
+        "installation-source": "dist",
+        "autoload": {
+            "psr-4": {
+                "Symfony\\Component\\EventDispatcher\\": ""
+            },
+            "exclude-from-classmap": [
+                "/Tests/"
+            ]
+        },
+        "notification-url": "https://packagist.org/downloads/",
+        "license": [
+            "MIT"
+        ],
+        "authors": [
+            {
+                "name": "Fabien Potencier",
+                "email": "fabien@symfony.com"
+            },
+            {
+                "name": "Symfony Community",
+                "homepage": "https://symfony.com/contributors"
+            }
+        ],
+        "description": "Symfony EventDispatcher Component",
+        "homepage": "https://symfony.com"
+    },
+    {
+        "name": "doctrine/common",
+        "version": "v2.6.2",
+        "version_normalized": "2.6.2.0",
+        "source": {
+            "type": "git",
+            "url": "https://github.com/doctrine/common.git",
+            "reference": "7bce00698899aa2c06fe7365c76e4d78ddb15fa3"
+        },
+        "dist": {
+            "type": "zip",
+            "url": "https://api.github.com/repos/doctrine/common/zipball/7bce00698899aa2c06fe7365c76e4d78ddb15fa3",
+            "reference": "7bce00698899aa2c06fe7365c76e4d78ddb15fa3",
+            "shasum": ""
+        },
+        "require": {
+            "doctrine/annotations": "1.*",
+            "doctrine/cache": "1.*",
+            "doctrine/collections": "1.*",
+            "doctrine/inflector": "1.*",
+            "doctrine/lexer": "1.*",
+            "php": "~5.5|~7.0"
+        },
+        "require-dev": {
+            "phpunit/phpunit": "~4.8|~5.0"
+        },
+        "time": "2016-11-30 16:50:46",
+        "type": "library",
+        "extra": {
+            "branch-alias": {
+                "dev-master": "2.7.x-dev"
+            }
+        },
+        "installation-source": "dist",
+        "autoload": {
+            "psr-4": {
+                "Doctrine\\Common\\": "lib/Doctrine/Common"
+            }
+        },
+        "notification-url": "https://packagist.org/downloads/",
+        "license": [
+            "MIT"
+        ],
+        "authors": [
+            {
+                "name": "Roman Borschel",
+                "email": "roman@code-factory.org"
+            },
+            {
+                "name": "Benjamin Eberlei",
+                "email": "kontakt@beberlei.de"
+            },
+            {
+                "name": "Guilherme Blanco",
+                "email": "guilhermeblanco@gmail.com"
+            },
+            {
+                "name": "Jonathan Wage",
+                "email": "jonwage@gmail.com"
+            },
+            {
+                "name": "Johannes Schmitt",
+                "email": "schmittjoh@gmail.com"
+            }
+        ],
+        "description": "Common Library for Doctrine projects",
+        "homepage": "http://www.doctrine-project.org",
+        "keywords": [
+            "annotations",
+            "collections",
+            "eventmanager",
+            "persistence",
+            "spl"
+        ]
+    },
+    {
+        "name": "symfony/yaml",
+        "version": "v3.2.0",
+        "version_normalized": "3.2.0.0",
+        "source": {
+            "type": "git",
+            "url": "https://github.com/symfony/yaml.git",
+            "reference": "f2300ba8fbb002c028710b92e1906e7457410693"
+        },
+        "dist": {
+            "type": "zip",
+            "url": "https://api.github.com/repos/symfony/yaml/zipball/f2300ba8fbb002c028710b92e1906e7457410693",
+            "reference": "f2300ba8fbb002c028710b92e1906e7457410693",
+            "shasum": ""
+        },
+        "require": {
+            "php": ">=5.5.9"
+        },
+        "require-dev": {
+            "symfony/console": "~2.8|~3.0"
+        },
+        "suggest": {
+            "symfony/console": "For validating YAML files using the lint command"
+        },
+        "time": "2016-11-18 21:17:59",
+        "type": "library",
+        "extra": {
+            "branch-alias": {
+                "dev-master": "3.2-dev"
+            }
+        },
+        "installation-source": "dist",
+        "autoload": {
+            "psr-4": {
+                "Symfony\\Component\\Yaml\\": ""
+            },
+            "exclude-from-classmap": [
+                "/Tests/"
+            ]
+        },
+        "notification-url": "https://packagist.org/downloads/",
+        "license": [
+            "MIT"
+        ],
+        "authors": [
+            {
+                "name": "Fabien Potencier",
+                "email": "fabien@symfony.com"
+            },
+            {
+                "name": "Symfony Community",
+                "homepage": "https://symfony.com/contributors"
+            }
+        ],
+        "description": "Symfony Yaml Component",
+        "homepage": "https://symfony.com"
+    },
+    {
+        "name": "yajra/laravel-datatables-oracle",
+        "version": "v6.22.2",
+        "version_normalized": "6.22.2.0",
+        "source": {
+            "type": "git",
+            "url": "https://github.com/yajra/laravel-datatables.git",
+            "reference": "18aeddbb091d27d84e4c855d59f0362d2da9f97b"
+        },
+        "dist": {
+            "type": "zip",
+            "url": "https://api.github.com/repos/yajra/laravel-datatables/zipball/18aeddbb091d27d84e4c855d59f0362d2da9f97b",
+            "reference": "18aeddbb091d27d84e4c855d59f0362d2da9f97b",
+            "shasum": ""
+        },
+        "require": {
+            "dompdf/dompdf": "^0.7",
+            "illuminate/database": "~5.0",
+            "illuminate/filesystem": "~5.0",
+            "illuminate/http": "~5.0",
+            "illuminate/support": "~5.0",
+            "illuminate/view": "~5.0",
+            "laravelcollective/html": "~5.0",
+            "league/fractal": "~0.14",
+            "maatwebsite/excel": "^2.0",
+            "php": ">=5.5.9"
+        },
+        "require-dev": {
+            "mockery/mockery": "~0.9",
+            "phpunit/phpunit": "~4.0"
+        },
+        "suggest": {
+            "barryvdh/laravel-snappy": "Allows exporting of dataTable to PDF using the print view."
+        },
+        "time": "2016-12-01 02:54:52",
+        "type": "library",
+        "installation-source": "dist",
+        "autoload": {
+            "psr-4": {
+                "Yajra\\Datatables\\": "src/"
+            }
+        },
+        "notification-url": "https://packagist.org/downloads/",
+        "license": [
+            "MIT"
+        ],
+        "authors": [
+            {
+                "name": "Arjay Angeles",
+                "email": "aqangeles@gmail.com"
+            }
+        ],
+        "description": "jQuery DataTables API for Laravel 4|5",
+        "keywords": [
+            "datatable",
+            "datatables",
+            "datatables jquery plugin",
+            "laravel",
+            "laravel4",
+            "laravel5"
+        ]
+    },
+    {
+        "name": "litipk/php-exceptions",
+        "version": "0.1.3",
+        "version_normalized": "0.1.3.0",
+        "source": {
+            "type": "git",
+            "url": "https://github.com/Litipk/php-exceptions.git",
+            "reference": "6271c3d5c51dab8bb64e4ac796b018574b477750"
+        },
+        "dist": {
+            "type": "zip",
+            "url": "https://api.github.com/repos/Litipk/php-exceptions/zipball/6271c3d5c51dab8bb64e4ac796b018574b477750",
+            "reference": "6271c3d5c51dab8bb64e4ac796b018574b477750",
+            "shasum": ""
+        },
+        "time": "2015-03-25 18:03:08",
+        "type": "library",
+        "installation-source": "dist",
+        "autoload": {
+            "psr-0": {
+                "Litipk\\Exceptions": "src/"
+            }
+        },
+        "notification-url": "https://packagist.org/downloads/",
+        "license": [
+            "MIT"
+        ],
+        "authors": [
+            {
+                "name": "Andres Correa Casablanca",
+                "email": "castarco@litipk.com"
+            }
+        ],
+        "description": "An extended set of basic exceptions definitions.",
+        "keywords": [
+            "exception",
+            "exceptions"
+        ]
+    },
+    {
+        "name": "litipk/php-bignumbers",
+        "version": "0.7.3",
+        "version_normalized": "0.7.3.0",
+        "source": {
+            "type": "git",
+            "url": "https://github.com/Litipk/php-bignumbers.git",
+            "reference": "163012f171ba323efd1562dfeac8b9e4c7998df7"
+        },
+        "dist": {
+            "type": "zip",
+            "url": "https://api.github.com/repos/Litipk/php-bignumbers/zipball/163012f171ba323efd1562dfeac8b9e4c7998df7",
+            "reference": "163012f171ba323efd1562dfeac8b9e4c7998df7",
+            "shasum": ""
+        },
+        "require": {
+            "ext-bcmath": "*",
+            "litipk/php-exceptions": ">=0.1.3",
+            "php": ">=5.4.0"
+        },
+        "require-dev": {
+            "codeclimate/php-test-reporter": "dev-master",
+            "phpunit/phpunit": "~4.8",
+            "psy/psysh": ">=0.5.2",
+            "squizlabs/php_codesniffer": "2.3.*"
+        },
+        "time": "2015-12-15 08:06:53",
+        "type": "library",
+        "installation-source": "dist",
+        "autoload": {
+            "psr-4": {
+                "Litipk\\BigNumbers\\": "src/"
+            }
+        },
+        "notification-url": "https://packagist.org/downloads/",
+        "license": [
+            "MIT"
+        ],
+        "authors": [
+            {
+                "name": "Andres Correa Casablanca",
+                "email": "castarco@litipk.com"
+            }
+        ],
+        "description": "An opensource library to handle immutable big numbers inside PHP applications",
+        "keywords": [
+            "bcmath",
+            "bignum",
+            "decimal",
+            "gmp",
+            "number"
         ]
     }
 ]

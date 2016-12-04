@@ -75,7 +75,7 @@ Route::get('/calculationAhp', 'CalculationAHPController@index');
 Route::get('/calculationAhp/{type}/{condition}/{typeView?}', 'CalculationAHPController@subfactor');
 
 Route::get('/calculationFuzzy', 'CalculationFuzzyController@index');
-Route::get('/calculationFuzzy/{type}/{condition}', 'CalculationFuzzyController@subfactor');
+Route::get('/calculationFuzzy/{type}/{condition}/{typeView?}', 'CalculationFuzzyController@subfactor');
 
 Route::resource('experts', 'ExpertsController');
 

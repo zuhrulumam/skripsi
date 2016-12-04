@@ -107,13 +107,14 @@ class NewAHP {
             for ($k = $this->min; $k <= $this->max; $k++) {
                 $value = 1;
                 $text = "faktor_" . $j . " / faktor_" . $k;
-                foreach ($this->userIds as $key => $value) {
-                    $value *= $this->pairwise['PairwiseUser_' . $value][$text];
+                foreach ($this->userIds as $key => $valueId) {
+                    print_r($text . ' dari ' . $valueId . ' ' . $value . ' kali ' . $this->pairwise['PairwiseUser_' . $valueId][$text] . '<br>');
+                    $value *= $this->pairwise['PairwiseUser_' . $valueId][$text];
                 }
                 $this->newPairwise[$text] = pow($value, (1 / $this->countUser));
             }
         }
-
+exit();
         return $this->newPairwise;
     }
 
@@ -168,19 +169,18 @@ class NewAHP {
 //        $this->checkPairwise();
 //        print_r($this->userIds);
     }
-    
-     public function checkPairwise() {
+
+    public function checkPairwise() {
         $jumlah = count($this->pairwise);
-        $k=0;
-         foreach ($this->userIds as $key => $valueId) {
+        $k = 0;
+        foreach ($this->userIds as $key => $valueId) {
 //             print_r($this->pairwise['PairwiseUser_'.$valueId]);
-             
-             if(!array_key_exists('faktor_5 / faktor_6', $this->pairwise['PairwiseUser_'.$valueId])){
-                 echo $valueId.'<br>';
-             }
-             
-         }
-         
+
+            if (!array_key_exists('faktor_5 / faktor_6', $this->pairwise['PairwiseUser_' . $valueId])) {
+                echo $valueId . '<br>';
+            }
+        }
+
         exit();
     }
 

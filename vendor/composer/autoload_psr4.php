@@ -6,7 +6,7 @@ $vendorDir = dirname(dirname(__FILE__));
 $baseDir = dirname($vendorDir);
 
 return array(
-    'phpDocumentor\\Reflection\\' => array($vendorDir . '/phpdocumentor/reflection-common/src', $vendorDir . '/phpdocumentor/type-resolver/src', $vendorDir . '/phpdocumentor/reflection-docblock/src'),
+    'phpDocumentor\\Reflection\\' => array($vendorDir . '/phpdocumentor/reflection-common/src', $vendorDir . '/phpdocumentor/reflection-docblock/src', $vendorDir . '/phpdocumentor/type-resolver/src'),
     'Yajra\\Datatables\\' => array($vendorDir . '/yajra/laravel-datatables-oracle/src'),
     'XdgBaseDir\\' => array($vendorDir . '/dnoegel/php-xdg-base-dir/src'),
     'Webmozart\\Assert\\' => array($vendorDir . '/webmozart/assert/src'),
@@ -35,14 +35,13 @@ return array(
     'Prettus\\Repository\\' => array($vendorDir . '/prettus/l5-repository/src/Prettus/Repository'),
     'PhpParser\\' => array($vendorDir . '/nikic/php-parser/lib/PhpParser'),
     'Monolog\\' => array($vendorDir . '/monolog/monolog/src/Monolog'),
+    'Litipk\\BigNumbers\\' => array($vendorDir . '/litipk/php-bignumbers/src'),
     'League\\Fractal\\' => array($vendorDir . '/league/fractal/src'),
     'League\\Flysystem\\' => array($vendorDir . '/league/flysystem/src'),
-    'Khill\\Lavacharts\\' => array($vendorDir . '/khill/lavacharts/src'),
     'InfyOm\\Generator\\' => array($vendorDir . '/infyomlabs/laravel-generator/src'),
     'InfyOm\\GeneratorBuilder\\' => array($vendorDir . '/infyomlabs/generator-builder/src'),
     'InfyOm\\AdminLTETemplates\\' => array($vendorDir . '/infyomlabs/adminlte-templates/src'),
     'Illuminate\\' => array($vendorDir . '/laravel/framework/src/Illuminate'),
-    'Fx3costa\\Laravelchartjs\\' => array($vendorDir . '/fx3costa/laravelchartjs/src'),
     'Faker\\' => array($vendorDir . '/fzaninotto/faker/src/Faker'),
     'Dotenv\\' => array($vendorDir . '/vlucas/phpdotenv/src'),
     'Dompdf\\' => array($vendorDir . '/dompdf/dompdf/src'),

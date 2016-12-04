@@ -176,20 +176,18 @@
                             @foreach($subFactor['rank'] as $keys=>$value)
                             {{ $i }}. {{ str_replace('normalWeight_', ' Sub Factor ',$keys)}} = {{$value}} <br>
                             <?php $i++ ?>
-                            @endforeach
-
-                            <h2>Global Rank</h2>
-                            <?php $i = 1; ?>
-                            @foreach($subFactor['rank'] as $keys=>$value)
-                            <?php $indexFactor = $key - 1;
-                            $result = $value * $factors[$indexFactor]; ?>
-                            {{ $i }}. {{str_replace('normalWeight_', ' Sub Factor ',$keys)}} = {{$result}} <br>
-    <?php $i++ ?>
-                            @endforeach
+                            @endforeach                            
 
                             <?php
                         }
                         ?>
+                        <h2>Global Rank</h2>
+<?php $i = 1; ?>
+                        @foreach($globalRank as $keys=>$value)
+
+                        {{ $i }}. {{ str_replace('normalWeight_', ' Sub Factor ',$keys)}} = {{$value }} <br>
+<?php $i++ ?>
+                        @endforeach 
                     </div>
                 </div>
             </div>
